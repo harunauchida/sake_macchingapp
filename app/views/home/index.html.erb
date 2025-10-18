@@ -1,0 +1,27 @@
+<h1>ようこそ、SAKE MATCHへ 🍶</h1>
+<p>あなたにぴったりの日本酒を見つけよう。</p>
+
+<div style="margin-top:20px;">
+    <%= link_to "診断を始める", new_type_path, class: "btn btn-primary" %> |
+    <%= link_to "レビューを見る", sakes_path, class: "btn btn-secondary" %> |
+    <%= link_to "ログイン", login_path, class: "btn btn-login" %> |
+    <%= link_to "新規登録", signup_path, class: "btn btn-primary" %> |
+    <%= link_to "ゲストログイン", guest_login_path, class: "btn btn-secondary" %>
+</div>
+
+<h2>おすすめの日本酒</h2>
+<div class="sake-cards">
+    <% @sakes.each do |sake| %>
+        <div class="sake-card">
+          <% if sake.image.present? %>
+            <%= image_tag sake.image, alt: sake.name, class: "sake-image" %>
+          <% else %>
+            <div class="sake-image-placeholder">No Image</div>
+          <% end %>
+          <h3><%= sake.name %></h3>
+          <p><%= truncate(sake.description, length: 50) %></p>
+          <%= link_to "詳細を見る", sake_path(sake), class: "btn btn-secondary btn-small" %>
+        </div>
+    <% end %>
+</div>
+

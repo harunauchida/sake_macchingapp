@@ -1,15 +1,24 @@
 Rails.application.routes.draw do
-  root "sakes#index"
+  root 'home#index'
 
+  # ユーザー関連
   resources :users, only: [:new, :create, :show, :edit, :update]
+
+  # 日本酒・レビュー関連
   resources :sakes, only: [:index, :show]
   resources :reviews, only: [:create, :destroy]
-  resources :type_diagnostics, only: [:index, :create, :show]
 
+  # タイプ診断機能
+  resources :types, controller: "type_diagnostics", only: [:new, :create, :show]
+
+  # ログイン関連
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
+  # 新規登録リンク
+  get "/signup", to: "users#new"
+
+  # ゲストログイン
   get "/guest_login", to: "sessions#guest_login"
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
