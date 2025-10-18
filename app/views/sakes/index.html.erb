@@ -1,0 +1,13 @@
+<h1>日本酒一覧ページ</h1>
+
+<% if @sakes.present? %>
+    <% @sakes.each do |sake| %>
+        <div style="border-bottom: 1px solid #ccc; margin-bottom: 10px;">
+            <h2><%= sake.name %></h2>
+            <p><%= sake.description %></p>
+        </div>
+    <% end %>
+<% else %>
+    <p>まだ日本酒が登録されていません。</p>
+<% end %>
+
