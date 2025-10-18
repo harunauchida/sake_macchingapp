@@ -1,0 +1,58 @@
+/* 診断フォーム全体 */
+.type-diagnostic-form {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fdfdfd;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* 質問1つ1つのカード */
+.type-diagnostic-question {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #f8f8f8;
+}
+
+/* 質問テキスト */
+.type-diagnostic-question .question-text {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* 回答ラジオボタン */
+.type-diagnostic-question .answer-options label {
+  margin-right: 20px;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.type-diagnostic-question input[type="radio"] {
+  margin-right: 5px;
+  transform: scale(1.2);
+}
+
+/* 診断ボタン */
+.btn-submit {
+  display: block;
+  margin: 20px auto 0 auto;
+  padding: 10px 25px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+/* 診断結果 */
+.type-diagnostic-result {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #fffbe6;
+  border: 1px solid #ffe58f;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 18px;
+  color: #d48806;
+}

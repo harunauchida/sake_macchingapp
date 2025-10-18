@@ -1,3 +1,5 @@
+@import "type_diagnostics";
+
 /* トップページ全体 */
 body {
     font-family: "Yu Gothic", sans-serif;
@@ -202,3 +204,4 @@ h1 {
   width: 100%;
   margin-bottom: 5px;
 }
+
