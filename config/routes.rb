@@ -14,7 +14,8 @@ Rails.application.routes.draw do
   # ログイン関連
   get "/login", to: "sessions#new"
   post "/login", to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
+  get "/logout", to: "sessions#destroy"
+  get "/guest_login", to: "sessions#guest_login"
 
   # 新規登録リンク
   get "/signup", to: "users#new"

@@ -1,10 +1,16 @@
-<!-- ヘッダー --> 
+<!-- ヘッダー -->  
 <header class="main-header">
   <div class="logo">SAKE MATCH</div>
+  
   <div class="header-buttons">
-    <%= link_to "ログイン", login_path, class: "btn btn-login" %>
-    <%= link_to "新規登録", signup_path, class: "btn btn-primary" %>
-    <%= link_to "ゲストログイン", guest_login_path, class: "btn btn-secondary" %>
+    <% if logged_in? %>
+      <span>ようこそ、<%= current_user.name %> さん</span>
+      <%= link_to "ログアウト", logout_path, class: "btn btn-login" %>
+    <% else %>
+      <%= link_to "ログイン", login_path, class: "btn btn-login" %>
+      <%= link_to "新規登録", signup_path, class: "btn btn-primary" %>
+      <%= link_to "ゲストログイン", guest_login_path, class: "btn btn-secondary" %>
+    <% end %>
   </div>
 </header>
 
@@ -12,7 +18,7 @@
 <p class="lead-text">あなたにぴったりの日本酒を見つけよう。</p>
 
 <div class="button-group">
-    <%= link_to "診断を始める", new_type_path, class: "btn btn-primary btn-large" %>
+  <%= link_to "診断を始める", new_type_path, class: "btn btn-primary btn-large" %>
 </div>
 
 <h2>おすすめの日本酒</h2>

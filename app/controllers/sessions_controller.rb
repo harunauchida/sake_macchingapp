@@ -19,8 +19,11 @@ class SessionsController < ApplicationController
     end
 
     def guest_login
-        guest = User.create!(name: "ゲスト", email: "guest@example.com", password: "password")
-        session[:user_id] = guest.id
-        redirect_to root_path, notice: "ゲストとしてログインしました！"
+      user = User.find_or_create_by(email: "guest@example.com") do |u|
+        u.name = "ゲストユーザー"
+        u.password = SecureRandom.urlsafe_base64
+      end
+    session[:user_id] = user.id
+    redirect_to root_path, notice: "ゲストログインしました"
     end
 end
