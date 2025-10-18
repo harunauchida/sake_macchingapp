@@ -4,12 +4,8 @@ Rails.application.routes.draw do
   # ユーザー関連
   resources :users, only: [:new, :create, :show, :edit, :update]
 
-  # 日本酒・レビュー関連
-  resources :sakes, only: [:index, :show]
-  resources :reviews, only: [:create, :destroy]
-
   # タイプ診断機能
-  resources :types, controller: "type_diagnostics", only: [:new, :create, :show]
+  resources :type_diagnostics, only: [:index, :new, :create, :show]
 
   # ログイン関連
   get "/login", to: "sessions#new"
@@ -20,6 +16,8 @@ Rails.application.routes.draw do
   # 新規登録リンク
   get "/signup", to: "users#new"
 
-  # ゲストログイン
-  get "/guest_login", to: "sessions#guest_login"
+  # 日本酒・レビュー関連
+  resources :sakes do
+    resources :reviews, only: [:create, :index, :edit, :update, :destroy]
+  end
 end

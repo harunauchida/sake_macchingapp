@@ -1,0 +1,71 @@
+<h1><%= @sake.name %></h1>     
+<p><%= @sake.description %></p>
+
+<h2>レビュー一覧</h2>
+<% if @reviews.present? %>
+  <div style="display:flex; flex-wrap:wrap; gap:10px;">
+    <% @reviews.each do |review| %>
+      <div class="review-card" style="border:1px solid #ccc; padding:10px; border-radius:5px; width:200px; box-sizing:border-box;">
+        <strong><%= review.user.name %></strong>：
+        <span>★<%= review.rating %></span>
+        <p style="font-size:14px;"><%= review.content %></p>
+
+        <% if review.photo.attached? %>
+          <div style="margin-top:5px;">
+            <%= image_tag review.photo, style: "max-width:100%; max-height:100px; display:block;" %>
+          </div>
+        <% end %>
+
+        <% if review.user == current_user %>
+          <div class="review-actions" style="margin-top:5px; display:flex; gap:5px;">
+            <%= link_to "編集", edit_sake_review_path(@sake, review), class: "btn btn-small btn-secondary" %>
+            <%= button_to "削除", [@sake, review],
+                          method: :delete,
+                          onclick: "return confirm('本当に削除しますか？')",
+                          form: { style: "display:inline" },
+                          class: "btn btn-small btn-danger" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>まだレビューはありません。</p>
+<% end %>
+
+<h2>レビュー投稿</h2>
+<% if logged_in? %>
+  <% if @review.errors.any? %>
+    <div class="alert alert-danger" style="margin-bottom:10px;">
+      <ul>
+        <% @review.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with(model: [@sake, @review], local: true, html: { multipart: true }) do |f| %>
+    <div style="margin-bottom:10px;">
+      <%= f.label :rating, "評価（1〜5）" %><br>
+      <%= f.select :rating, options_for_select(1..5, @review.rating), { prompt: "選択してください" }, class: "review-rating", required: true %>
+    </div>
+    <div style="margin-bottom:10px;">
+      <%= f.label :content, "コメント" %><br>
+      <%= f.text_area :content, rows: 3, placeholder: "レビューを書く", class: "review-content", required: true %>
+    </div>
+
+    <div style="margin-bottom:10px;">
+      <%= f.label :photo, "写真（任意）" %><br>
+      <%= f.file_field :photo, class: "review-photo" %>
+    </div>
+
+    <%= f.submit "投稿", class: "btn btn-primary btn-small" %>
+  <% end %>
+<% else %>
+  <p><%= link_to "ログインしてレビューを書く", login_path %></p>
+<% end %>
+
+<div style="margin-top:20px;">
+  <%= link_to "戻る", root_path, class: "btn btn-secondary" %>
+</div>

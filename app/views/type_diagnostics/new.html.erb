@@ -1,0 +1,19 @@
+<h1>タイプ診断</h1>
+<p>質問に答えてあなたに合う日本酒タイプを見つけよう！</p>
+
+<%= form_with url: type_diagnostics_path, local: true do |f| %>
+  <% @questions.each do |q| %>
+    <div class="question">
+      <p><%= q[:content] %></p>
+      <%= radio_button_tag "answers[#{q[:id]}]", 2 %> はい
+      <%= radio_button_tag "answers[#{q[:id]}]", 0 %> いいえ
+    </div>
+  <% end %>
+  <div>
+    <%= f.submit "診断する", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+<div class="form-actions">
+  <%= link_to "トップに戻る", root_path, class: "btn btn-secondary" %>
+</div>

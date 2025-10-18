@@ -157,3 +157,48 @@ h1 {
     margin-bottom: 10px;
     display: inline-block;
 }
+.sake-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.sake-card {
+  width: 300px;
+  padding: 15px;
+  background-color: #fff8f0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.sake-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.sake-image-placeholder {
+  width: 100%;
+  height: 150px;
+  background-color: #e0dcd1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.review-card {
+  background-color: #f4f4f4;
+  padding: 5px 8px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+.review-rating, textarea {
+  width: 100%;
+  margin-bottom: 5px;
+}

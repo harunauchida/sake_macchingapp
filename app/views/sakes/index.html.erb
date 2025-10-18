@@ -1,13 +1,56 @@
 <h1>日本酒一覧ページ</h1>
 
 <% if @sakes.present? %>
+  <div class="sake-cards">
     <% @sakes.each do |sake| %>
-        <div style="border-bottom: 1px solid #ccc; margin-bottom: 10px;">
-            <h2><%= sake.name %></h2>
-            <p><%= sake.description %></p>
-        </div>
-    <% end %>
-<% else %>
-    <p>まだ日本酒が登録されていません。</p>
-<% end %>
+      <div class="sake-card">
+        <% if sake.image.present? %>
+          <%= image_tag sake.image, alt: sake.name, class: "sake-image" %>
+        <% else %>
+          <div class="sake-image-placeholder">No Image</div>
+        <% end %>
 
+        <h2><%= sake.name %></h2>
+        <p><%= truncate(sake.description, length: 100) %></p>
+
+        <!-- 仮レビュー表示（最新2件だけ表示） -->
+        <div class="sake-reviews">
+          <% recent_reviews = sake.reviews.order(created_at: :desc).limit(2) %>
+          <% if recent_reviews.any? %>
+            <% recent_reviews.each do |review| %>
+              <div class="review-card">
+                <strong><%= review.user.name %></strong>：
+                <span>★<%= review.rating %></span>
+                <p><%= truncate(review.content, length: 50) %></p>
+              </div>
+            <% end %>
+          <% else %>
+            <p>まだレビューはありません。</p>
+          <% end %>
+        </div>
+
+        <!-- 詳細ページへのリンク -->
+        <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small" %>
+
+        <% if logged_in? %>
+          <%= form_with(model: [sake, Review.new], local: true) do |f| %>
+            <div>
+              <%= f.label :rating, "評価（1〜5）" %>
+              <%= f.select :rating, options_for_select(1..5), {}, class: "review-rating" %>
+            </div>
+            <div>
+              <%= f.label :content, "コメント" %>
+              <%= f.text_area :content, rows: 2, placeholder: "レビューを書く" %>
+            </div>
+            <%= f.submit "投稿", class: "btn btn-secondary btn-small" %>
+          <% end %>
+        <% else %>
+          <p><%= link_to "ログインしてレビューを書く", login_path %></p>
+        <% end %>
+
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>まだ日本酒が登録されていません。</p>
+<% end %>

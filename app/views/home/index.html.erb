@@ -18,7 +18,7 @@
 <p class="lead-text">あなたにぴったりの日本酒を見つけよう。</p>
 
 <div class="button-group">
-  <%= link_to "診断を始める", new_type_path, class: "btn btn-primary btn-large" %>
+  <%= link_to "診断を始める", new_type_diagnostic_path, class: "btn btn-primary btn-large" %>
 </div>
 
 <h2>おすすめの日本酒</h2>
@@ -45,8 +45,7 @@
           🍶 タイプ診断おすすめ
         </div>
 
-        <%= link_to "詳細を見る", "#", class: "btn btn-secondary btn-small" %>
-        <%= link_to "レビューを見る", "#", class: "btn btn-primary btn-small" %>
+        <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small" %>
       </div>
     <% end %>
   <% else %>

@@ -1,0 +1,7 @@
+<h1>診断結果</h1>
+
+<p>あなたのタイプは…</p>
+<h2><%= @type.result %></h2>
+<p>総合スコア: <%= @type.total_score %></p>
+
+<%= link_to "トップに戻る", root_path, class: "btn btn-secondary" %>
