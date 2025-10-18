@@ -1,27 +1,49 @@
-<h1>ようこそ、SAKE MATCHへ 🍶</h1>
-<p>あなたにぴったりの日本酒を見つけよう。</p>
-
-<div style="margin-top:20px;">
-    <%= link_to "診断を始める", new_type_path, class: "btn btn-primary" %> |
-    <%= link_to "レビューを見る", sakes_path, class: "btn btn-secondary" %> |
-    <%= link_to "ログイン", login_path, class: "btn btn-login" %> |
-    <%= link_to "新規登録", signup_path, class: "btn btn-primary" %> |
+<!-- ヘッダー --> 
+<header class="main-header">
+  <div class="logo">SAKE MATCH</div>
+  <div class="header-buttons">
+    <%= link_to "ログイン", login_path, class: "btn btn-login" %>
+    <%= link_to "新規登録", signup_path, class: "btn btn-primary" %>
     <%= link_to "ゲストログイン", guest_login_path, class: "btn btn-secondary" %>
+  </div>
+</header>
+
+<h1>ようこそ、SAKE MATCHへ 🍶</h1>
+<p class="lead-text">あなたにぴったりの日本酒を見つけよう。</p>
+
+<div class="button-group">
+    <%= link_to "診断を始める", new_type_path, class: "btn btn-primary btn-large" %>
 </div>
 
 <h2>おすすめの日本酒</h2>
 <div class="sake-cards">
+  <% if @sakes.present? %>
     <% @sakes.each do |sake| %>
-        <div class="sake-card">
-          <% if sake.image.present? %>
-            <%= image_tag sake.image, alt: sake.name, class: "sake-image" %>
-          <% else %>
-            <div class="sake-image-placeholder">No Image</div>
-          <% end %>
-          <h3><%= sake.name %></h3>
-          <p><%= truncate(sake.description, length: 50) %></p>
-          <%= link_to "詳細を見る", sake_path(sake), class: "btn btn-secondary btn-small" %>
-        </div>
-    <% end %>
-</div>
+      <div class="sake-card">
+        <% if sake.image.present? %>
+          <%= image_tag sake.image, alt: sake.name, class: "sake-image" %>
+        <% else %>
+          <div class="sake-image-placeholder">No Image</div>
+        <% end %>
 
+        <h3><%= sake.name %></h3>
+        <p><%= truncate(sake.description, length: 50) %></p>
+
+        <!-- 仮星評価 -->
+        <div class="sake-rating">
+          ★★★★☆ <!-- 仮の平均評価 -->
+        </div>
+
+        <!-- 仮タイプ診断マーク -->
+        <div class="sake-type-mark">
+          🍶 タイプ診断おすすめ
+        </div>
+
+        <%= link_to "詳細を見る", "#", class: "btn btn-secondary btn-small" %>
+        <%= link_to "レビューを見る", "#", class: "btn btn-primary btn-small" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>まだ登録された日本酒がありません。</p>
+  <% end %>
+</div>
