@@ -1,3 +1,14 @@
+<% if @user.errors.any? %>
+  <div class="error-messages">
+    <h3><%= pluralize(@user.errors.count, "件のエラー") %>があります:</h3>
+    <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <h1>新規登録</h1>
 
 <%= form_with(model: @user, url: users_path, local: true) do |f| %>
@@ -25,3 +36,8 @@
     <%= f.submit "登録", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<div class="form-actions">
+  <%= link_to "戻る", root_path, class: "btn btn-secondary" %>
+</div>
+
