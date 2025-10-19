@@ -1,5 +1,5 @@
 @import "type_diagnostics";
-
+@import "sakes";
 /* トップページ全体 */
 body {
     font-family: "Yu Gothic", sans-serif;
@@ -232,3 +232,4 @@ h1 {
   padding: 8px 16px;
   border-radius: 6px;
 }
+

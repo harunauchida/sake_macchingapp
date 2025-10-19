@@ -1,29 +1,28 @@
 <div class="sake-card">
-  <% if sake.image.attached? %>
-    <%= image_tag sake.image, alt: sake.name, class: "sake-image" %>
+  <% if sake.image_path.present? %>
+    <%= image_tag(sake.image_path, alt: sake.name, class: "sake-image") %>
   <% else %>
     <div class="sake-image-placeholder">No Image</div>
   <% end %>
 
-  <h2><%= sake.name %></h2>
-  <p><%= truncate(sake.description, length: 100) %></p>
+  <h3><%= sake.name %></h3>
+  <p><%= truncate(sake.description, length: 50) %></p>
 
-  <!-- 仮レビュー表示（最新2件だけ表示） -->
-  <div class="sake-reviews">
-    <% recent_reviews = sake.reviews.order(created_at: :desc).limit(2) %>
-    <% if recent_reviews.any? %>
-      <% recent_reviews.each do |review| %>
-        <div class="review-card">
-          <strong><%= review.user.name %></strong>：
-          <span>★<%= review.rating %></span>
-          <p><%= truncate(review.content, length: 50) %></p>
-        </div>
-      <% end %>
-    <% else %>
-      <p>まだレビューはありません。</p>
-    <% end %>
+  <!-- 仮星評価 -->
+  <div class="sake-rating">★★★★☆</div>
+
+  <!-- タイプ診断マーク -->
+  <div class="sake-type-mark">
+    <%=
+      case sake.flavor_type
+      when "sweet" then "甘口タイプおすすめ 🍯"
+      when "medium" then "中口タイプおすすめ 🌾"
+      when "dry" then "辛口タイプおすすめ 🔥"
+      else "タイプ診断おすすめ 🍶"
+      end
+    %>
   </div>
 
-  <!-- 詳細ページへのリンク -->
+  <!-- レビューリンク -->
   <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small" %>
 </div>
