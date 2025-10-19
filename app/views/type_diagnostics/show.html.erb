@@ -1,7 +1,21 @@
 <h1>診断結果</h1>
-
 <p>あなたのタイプは…</p>
 <h2><%= @type.result %></h2>
-<p>総合スコア: <%= @type.total_score %></p>
 
+<h3>おすすめの日本酒</h3>
+<div class="sake-cards">
+  <% if @recommended_sakes.present? %>
+    <% @recommended_sakes.each do |sake| %>
+      <div class="sake-card">
+        <%= image_tag sake.image, alt: sake.name, class: "sake-image" %>
+        <h4><%= sake.name %></h4>
+        <p><%= truncate(sake.description, length: 50) %></p>
+        <!-- レビューリンク -->
+        <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small" %>
+      </div>
+    <% end %>
+  <% else %>
+    <p>おすすめの日本酒はまだありません。</p>
+  <% end %>
+</div>
 <%= link_to "トップに戻る", root_path, class: "btn btn-secondary" %>
