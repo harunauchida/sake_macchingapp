@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   # ログイン関連
   get    "/login",  to: "sessions#new"
   post   "/login",  to: "sessions#create"
-  delete "/logout", to: "sessions#destroy"
+  delete '/logout', to: 'sessions#destroy', as: 'logout'
   get    "/guest_login", to: "sessions#guest_login"
 
   # 日本酒・レビュー関連
