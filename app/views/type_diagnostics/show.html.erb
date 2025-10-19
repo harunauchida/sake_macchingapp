@@ -7,10 +7,13 @@
   <% if @recommended_sakes.present? %>
     <% @recommended_sakes.each do |sake| %>
       <div class="sake-card">
-        <%= image_tag sake.image, alt: sake.name, class: "sake-image" %>
+        <% if sake.image.attached? %>
+          <%= image_tag sake.image, alt: sake.name, class: "sake-image" %>
+        <% else %>
+          <div class="sake-image-placeholder">No Image</div>
+        <% end %>
         <h4><%= sake.name %></h4>
         <p><%= truncate(sake.description, length: 50) %></p>
-        <!-- レビューリンク -->
         <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small" %>
       </div>
     <% end %>
@@ -18,4 +21,5 @@
     <p>おすすめの日本酒はまだありません。</p>
   <% end %>
 </div>
+
 <%= link_to "トップに戻る", root_path, class: "btn btn-secondary" %>

@@ -7,10 +7,10 @@
       <p class="question-text"><%= q[:content] %></p>
       <div class="answer-options">
         <label>
-          <%= radio_button_tag "answers[#{q[:id]}]", 2 %> はい
+          <%= radio_button_tag "answers[#{q[:id]}]", "はい" %> はい
         </label>
         <label>
-          <%= radio_button_tag "answers[#{q[:id]}]", 0 %> いいえ
+          <%= radio_button_tag "answers[#{q[:id]}]", "いいえ", true %> いいえ
         </label>
       </div>
     </div>

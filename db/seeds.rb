@@ -1,41 +1,26 @@
-# 日本酒のデータを作成
-Sake.create!([
-  {
-    name: "久保田 千寿",
-    description: "新潟を代表する淡麗辛口の日本酒。キレのある味わいが特徴。",
-    flavor_type: "dry",
-    image: "kubota.jpg"
-  },
-  {
-    name: "田酒 特別純米",
-    description: "米の旨みをしっかり感じられる特別純米酒。バランスの取れた中口。",
-    flavor_type: "medium",
-    image: "denshu.jpg"
-  },
-  {
-    name: "十四代 本丸",
-    description: "フルーティーで上品な香りが楽しめる人気の銘柄。",
-    flavor_type: "sweet",
-    image: "jyuyondai.jpg"
-  },
-  {
-    name: "八海山 特別本醸造",
-    description: "スッキリとした飲み口で食中酒としても最適。",
-    flavor_type: "dry",
-    image: "hakkaisan.jpg"
-  },
-  {
-    name: "越乃寒梅 白ラベル",
-    description: "新潟の淡麗辛口を代表する上品な味わい。",
-    flavor_type: "medium",
-    image: "koshinokanbai.jpg"
-  },
-  {
-    name: "浦霞 純米",
-    description: "ふくらみのある旨味とキレの良い後味が魅力。",
-    flavor_type: "sweet",
-    image: "urakasumi.jpg"
-  }
-])
+Sake.destroy_all
 
-puts "日本酒データを登録しました！"
+sakes = [
+  { name: '獺祭 純米大吟醸', description: 'フルーティで華やかな香り', file: 'db/seeds/images/dassai.png', flavor_type: 'sweet' },
+  { name: '八海山 特別純米', description: 'すっきりした味わい', file: 'db/seeds/images/hakkaisan.png', flavor_type: 'medium' },
+  { name: '黒龍 いっちょらい', description: '芳醇でコクのある味わい', file: 'db/seeds/images/kokuryu.png', flavor_type: 'dry' },
+  { name: '久保田 千寿', description: '軽やかで飲みやすい、バランスの良い日本酒', file: 'db/seeds/images/senju.png', flavor_type: 'medium' },
+  { name: '田酒 特別純米', description: '米の旨味が感じられる、やや甘口の日本酒', file: 'db/seeds/images/tasake.png', flavor_type: 'sweet' },
+  { name: '十四代 本丸', description: '希少価値の高いプレミアムな日本酒', file: 'db/seeds/images/honmaru.png', flavor_type: 'dry' }
+]
+
+sakes.each do |s|
+  sake = Sake.create!(
+    name: s[:name],
+    description: s[:description],
+    flavor_type: s[:flavor_type]
+  )
+  # 画像が存在する場合のみ添付
+  if File.exist?(Rails.root.join(s[:file]))
+    sake.image.attach(io: File.open(Rails.root.join(s[:file])), filename: File.basename(s[:file]))
+  else
+    puts "画像ファイルが見つかりません: #{s[:file]}"
+  end
+end
+
+puts "登録完了: #{Sake.count} 件"

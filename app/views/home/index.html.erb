@@ -1,4 +1,4 @@
-<!-- ヘッダー -->    
+<!-- ヘッダー -->        
 <header class="main-header">
   <div class="logo">SAKE MATCH</div>
   
@@ -26,30 +26,33 @@
   <% if @all_sakes.present? %>
     <% @all_sakes.each do |sake| %>
       <div class="sake-card">
-        <% if sake["image"].present? %>
-          <%= image_tag sake["image"], alt: sake["name"], class: "sake-image" %>
+        <%# --- public/images から絶対パスで表示 --- %>
+        <% if sake.image_path.present? %>
+          <%= image_tag(sake.image_path, alt: sake.name, class: "sake-image") %>
         <% else %>
           <div class="sake-image-placeholder">No Image</div>
         <% end %>
 
-        <h3><%= sake["name"] %></h3>
-        <p><%= truncate(sake["description"], length: 50) %></p>
+        <h3><%= sake.name %></h3>
+        <p><%= truncate(sake.description, length: 50) %></p>
 
         <!-- 仮星評価 -->
         <div class="sake-rating">★★★★☆</div>
 
-        <!-- 実データに応じたタイプ診断マーク -->
+        <!-- タイプ診断マーク -->
         <div class="sake-type-mark">
-          <%= case sake["flavor_type"]
-              when "sweet" then "甘口タイプおすすめ 🍯"
-              when "medium" then "中口タイプおすすめ 🌾"
-              when "dry" then "辛口タイプおすすめ 🔥"
-              else "タイプ診断おすすめ 🍶"
-              end %>
+          <%=
+            case sake.flavor_type
+            when "sweet" then "甘口タイプおすすめ 🍯"
+            when "medium" then "中口タイプおすすめ 🌾"
+            when "dry" then "辛口タイプおすすめ 🔥"
+            else "タイプ診断おすすめ 🍶"
+            end
+          %>
         </div>
 
         <!-- レビューリンク -->
-        <%= link_to "レビューを見る", sake_path(sake["id"]), class: "btn btn-primary btn-small" %>
+        <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small" %>
       </div>
     <% end %>
   <% else %>
