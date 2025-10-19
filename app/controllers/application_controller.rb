@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  helper SakesHelper
   helper_method :current_user, :logged_in?
 
   # 現在ログインしているユーザーを返す

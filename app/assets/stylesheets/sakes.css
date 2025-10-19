@@ -68,7 +68,19 @@
   background-color: #6495ed;
 }
 
-/* 中口ラベル（例） */
+/* 中口ラベル */
 .type-label.medium {
   background-color: #f0c040;
+}
+/* 星評価 */
+.sake-rating {
+  font-size: 1.1rem;
+  color: #f39c12; /* 星の色 */
+  margin-bottom: 0.5rem;
+}
+
+.sake-rating .rating-number {
+  font-size: 0.9rem;
+  color: #333;
+  margin-left: 0.3rem;
 }

@@ -8,8 +8,11 @@
   <h3><%= sake.name %></h3>
   <p><%= truncate(sake.description, length: 50) %></p>
 
-  <!-- 仮星評価 -->
-  <div class="sake-rating">★★★★☆</div>
+  <!-- 星評価 -->
+  <div class="sake-rating">
+  <%= star_rating(sake.average_rating) %> 
+  <span class="rating-number">(<%= sake.average_rating %>)</span>
+  </div>
 
   <!-- タイプ診断マーク -->
   <div class="sake-type-mark">

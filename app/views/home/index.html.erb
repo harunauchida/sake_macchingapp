@@ -1,4 +1,4 @@
-<!-- ヘッダー -->        
+<!-- ヘッダー -->         
 <header class="main-header">
   <div class="logo">SAKE MATCH</div>
   
@@ -24,41 +24,11 @@
 <h2>おすすめの日本酒</h2>
 <div class="sake-cards">
   <% if @all_sakes.present? %>
-    <% @all_sakes.each do |sake| %>
-      <div class="sake-card">
-        <%# --- public/images から絶対パスで表示 --- %>
-        <% if sake.image_path.present? %>
-          <%= image_tag(sake.image_path, alt: sake.name, class: "sake-image") %>
-        <% else %>
-          <div class="sake-image-placeholder">No Image</div>
-        <% end %>
-
-        <h3><%= sake.name %></h3>
-        <p><%= truncate(sake.description, length: 50) %></p>
-
-        <!-- 仮星評価 -->
-        <div class="sake-rating">★★★★☆</div>
-
-        <!-- タイプ診断マーク -->
-        <div class="sake-type-mark">
-          <%=
-            case sake.flavor_type
-            when "sweet" then "甘口タイプおすすめ 🍯"
-            when "medium" then "中口タイプおすすめ 🌾"
-            when "dry" then "辛口タイプおすすめ 🔥"
-            else "タイプ診断おすすめ 🍶"
-            end
-          %>
-        </div>
-
-        <!-- レビューリンク -->
-        <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small" %>
-      </div>
-    <% end %>
+    <!-- 一覧ページと共通のカード部分を呼び出す -->
+    <%= render partial: "sakes/sake_card", collection: @all_sakes, as: :sake %>
   <% else %>
     <p>まだ登録された日本酒がありません。</p>
   <% end %>
 </div>
 
 <%= link_to "もっとみる", sakes_path, class: "btn btn-secondary" %>
-
