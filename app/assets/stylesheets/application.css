@@ -1,9 +1,153 @@
 @import "type_diagnostics";
 @import "sakes";
-/* トップページ全体 */
+/* =======================
+   ヘッダー
+======================= */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: #fdf6e3;
+    position: relative;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 2em;
+    font-weight: bold;
+    color: #3c3c3c;
+}
+
+/* ヘッダー右上ボタン */
+.header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ゲスト用ボタン */
+.guest-buttons a {
+    padding: 8px 14px;
+    font-size: 0.9em;
+    text-decoration: none;
+}
+
+/* =======================
+   ユーザードロップダウン
+======================= */
+.user-dropdown {
+    position: relative;
+}
+
+.user-dropdown summary {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+.user-dropdown .user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.user-dropdown .dropdown-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 5px;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    min-width: 150px;
+    display: none;
+    z-index: 100;
+}
+
+.user-dropdown[open] .dropdown-menu {
+    display: block;
+}
+
+/* アカウント情報リンクとログアウトボタンを統一 */
+.user-dropdown .dropdown-menu a,
+.user-dropdown .dropdown-menu button.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    text-align: left;
+    background: none;
+    border: none;
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1em;
+    border-radius: 0;
+    transition: background-color 0.2s;
+}
+
+.user-dropdown .dropdown-menu a:hover,
+.user-dropdown .dropdown-menu button.dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* =======================
+   共通ボタンスタイル
+======================= */
+.btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 15px 25px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.btn-primary {
+    background-color: #6cbf84 !important;
+    color: white !important;
+}
+
+.btn-primary:hover {
+    background-color: #5aa76b !important;
+}
+
+.btn-secondary {
+    background-color: #f2a65a !important;
+    color: white !important;
+}
+
+.btn-secondary:hover {
+    background-color: #e08c3f !important;
+}
+
+.btn-login {
+    background-color: #888888 !important;
+    color: white !important;
+}
+
+.btn-login:hover {
+    background-color: #666666 !important;
+}
+
+.btn-small {
+    padding: 8px 12px;
+    font-size: 0.9em;
+}
+
+/* =======================
+   トップページ全体
+======================= */
 body {
     font-family: "Yu Gothic", sans-serif;
-    background-color: #fdf6e3; /* 淡いベージュ */
+    background-color: #fdf6e3;
     text-align: center;
     padding: 50px;
 }
@@ -19,79 +163,9 @@ h1 {
     margin-bottom: 30px;
 }
 
-/* ヘッダー */
-.main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 40px;
-    background-color: #fdf6e3;
-    position: relative;
-}
-
-.logo {
-    font-size: 2em;
-    font-weight: bold;
-    color: #3c3c3c;
-}
-
-/* ヘッダー右上ボタン */
-.header-buttons {
-    display: flex;
-    gap: 8px;
-}
-
-.header-buttons .btn {
-    padding: 8px 14px;  /* 少し小さめ */
-    font-size: 0.9em;
-}
-
-/* ボタングループ（診断・レビュー用） */
-.button-group {
-    margin: 20px 0;
-}
-
-/* ボタン共通 */
-.btn {
-    display: inline-block;
-    margin: 10px;
-    padding: 15px 25px;
-    font-size: 1.2em;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 10px;
-    transition: 0.2s;
-}
-
-/* 個別ボタン色 */
-.btn-primary {
-    background-color: #6cbf84 !important; /* 緑系 */
-    color: white !important;
-}
-
-.btn-primary:hover {
-    background-color: #5aa76b !important;
-}
-
-.btn-secondary {
-    background-color: #f2a65a !important; /* オレンジ系 */
-    color: white !important;
-}
-
-.btn-secondary:hover {
-    background-color: #e08c3f !important;
-}
-
-.btn-login {
-    background-color: #888888 !important; /* グレー系 */
-    color: white !important;
-}
-
-.btn-login:hover {
-    background-color: #666666 !important;
-}
-
-/* 日本酒カード全体 */ 
+/* =======================
+   日本酒カード
+======================= */
 .sake-cards {
     display: flex;
     flex-wrap: wrap;
@@ -100,40 +174,34 @@ h1 {
     margin-top: 30px;
 }
 
-/* 個別カード */
 .sake-card {
+    width: 300px;
+    padding: 15px;
     background-color: #fff8f0;
     border-radius: 15px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    padding: 15px;
-    width: 200px;
-    text-align: center;
-    transition: transform 0.2s;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow: visible; /* 画像切れ防止 */
+    overflow: visible;
+    transition: transform 0.2s;
 }
 
 .sake-card:hover {
     transform: translateY(-5px);
 }
 
-/* 画像 */
 .sake-image {
-    width: 100%;         /* カード幅に合わせる */
-    height: 300%;        
-    object-fit: contain; /* 縦横比を維持して全体表示 */
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
     border-radius: 10px;
     margin-bottom: 10px;
-    display: block;
 }
 
-/* 画像がない場合 */
 .sake-image-placeholder {
     width: 100%;
-    height: auto;        /* 高さ自動調整 */
-    min-height: 150px;   /* 最低高さは必要に応じて指定 */
+    height: 150px;
     background-color: #e0dcd1;
     border-radius: 10px;
     display: flex;
@@ -142,22 +210,15 @@ h1 {
     color: #888;
     margin-bottom: 10px;
 }
-/* 小ボタン */
-.btn-small {
-    padding: 8px 12px;
-    font-size: 0.9em;
-}
 
-/* 仮星評価 */
 .sake-rating {
-    color: #f2a65a; /* オレンジ色で目立たせる */
+    color: #f2a65a;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
-/* タイプ診断マーク */
 .sake-type-mark {
-    background-color: #6cbf84; /* 緑系 */
+    background-color: #6cbf84;
     color: white;
     font-size: 0.85em;
     padding: 3px 6px;
@@ -165,71 +226,152 @@ h1 {
     margin-bottom: 10px;
     display: inline-block;
 }
-.sake-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
 
-.sake-card {
-  width: 300px;
-  padding: 15px;
-  background-color: #fff8f0;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.sake-image {
-  width: 100%;
-  height: 300%;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-.sake-image-placeholder {
-  width: 100%;
-  height: 150px;
-  background-color: #e0dcd1;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #888;
-  margin-bottom: 10px;
-}
-
+/* =======================
+   レビューカード
+======================= */
 .review-card {
-  background-color: #f4f4f4;
-  padding: 5px 8px;
-  border-radius: 5px;
-  margin-bottom: 5px;
+    background-color: #f4f4f4;
+    padding: 5px 8px;
+    border-radius: 5px;
+    margin-bottom: 5px;
 }
 
-.review-rating, textarea {
-  width: 100%;
-  margin-bottom: 5px;
+.review-rating,
+textarea {
+    width: 100%;
+    margin-bottom: 5px;
 }
-
-@import "type_diagnostics";
 
 .review-form {
-  background-color: #f9f9f9;
-  padding: 20px;
-  border-radius: 12px;
-  margin-top: 15px;
-  box-shadow: 0 0 6px rgba(0,0,0,0.1);
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 15px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
 }
 
 .review-form .form-group {
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 
 .review-form .btn-primary {
-  background-color: #4caf50;
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  border-radius: 6px;
+    background-color: #4caf50;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
 }
 
+/* =======================
+   ユーザー編集フォーム
+======================= */
+.user-form {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #fff8f0;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.user-form .form-group {
+    margin-bottom: 15px;
+}
+
+.user-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #3c3c3c;
+}
+
+.user-form input.form-control,
+.user-form textarea.form-control,
+.user-form select.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.user-form input.form-control:focus,
+.user-form textarea.form-control:focus,
+.user-form select.form-control:focus {
+    border-color: #6cbf84;
+    box-shadow: 0 0 5px rgba(108,191,132,0.4);
+    outline: none;
+}
+
+.user-form textarea.form-control {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* アイコン表示部分 */
+.current-icon {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.current-icon img.user-icon {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid #6cbf84;
+}
+
+/* ユーザー編集ボタン */
+.user-form .btn-primary {
+    background-color: #6cbf84;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.user-form .btn-primary:hover {
+    background-color: #5aa76b;
+}
+
+.user-form .btn-secondary {
+    background-color: #888888;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.user-form .btn-secondary:hover {
+    background-color: #666666;
+}
+
+/* =======================
+   フラッシュメッセージ
+======================= */
+.alert {
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
