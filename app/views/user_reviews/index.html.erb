@@ -1,4 +1,11 @@
-<h1><%= @user.name %>さんのレビュー一覧</h1>    
+<h1><%= @user.name %>さんのレビュー一覧</h1>     
+
+<!-- 気になる一覧リンク -->
+<% unless current_user.guest? %>
+  <div class="mb-4">
+    <%= link_to "気になる一覧を見る", user_favorites_path(@user), class: "btn btn-primary" %>
+  </div>
+<% end %>
 
 <% if @reviews.any? %>
   <div class="sake-cards">
@@ -31,3 +38,8 @@
 <% else %>
   <p>まだレビューは投稿されていません。</p>
 <% end %>
+
+<!-- 戻るボタン -->
+<div class="mt-4">
+  <%= link_to '戻る', 'javascript:history.back()', class: 'btn btn-secondary' %>
+</div>

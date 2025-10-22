@@ -2,10 +2,16 @@ class FavoritesController < ApplicationController
   before_action :require_login
   before_action :set_sake, only: [:create, :destroy]
 
+  # マイページ用：自分の気になる一覧
   def index
-    @favorites = current_user.favorites.includes(:sake)
+    @user = User.find(params[:user_id])
+    # マイページ以外はアクセス不可
+    redirect_to root_path, alert: "権限がありません" unless @user == current_user
+
+    @favorite_sakes = @user.favorite_sakes.includes(image_attachment: :blob, reviews: :user)
   end
 
+  # 気になる追加
   def create
     favorite = current_user.favorites.new(sake: @sake)
     if favorite.save
@@ -15,10 +21,16 @@ class FavoritesController < ApplicationController
     end
   end
 
+  # 気になる解除
   def destroy
     favorite = current_user.favorites.find_by(sake: @sake)
-    favorite.destroy if favorite
-    redirect_to sakes_path, notice: "気になるを解除しました"
+    if favorite
+      favorite.destroy
+      notice = "気になるを解除しました"
+    else
+      notice = "お気に入りが見つかりませんでした"
+    end
+    redirect_to sakes_path, notice: notice
   end
 
   private

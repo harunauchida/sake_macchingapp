@@ -1,11 +1,11 @@
-class SakesController < ApplicationController  
+class SakesController < ApplicationController
   def index
-    # トップページ用
+    # トップページ用の甘口・中口・辛口分類
     @sweet_sakes  = Sake.where(flavor_type: "sweet")
     @medium_sakes = Sake.where(flavor_type: "medium")
     @dry_sakes    = Sake.where(flavor_type: "dry")
 
-    # 日本酒一覧ページ用の検索処理
+    # 検索処理
     if params[:q].present?
       keyword = params[:q]
 
@@ -20,9 +20,26 @@ class SakesController < ApplicationController
       @sakes = Sake.where(
         "name LIKE :keyword OR flavor_type LIKE :keyword",
         keyword: "%#{mapped_keyword}%"
-      ).order(:name)
+      )
     else
-      @sakes = Sake.all.order(:name)
+      @sakes = Sake.all
+    end
+
+    # 順番の処理
+    case params[:sort]
+    when "popular"
+      # レビュー数の多い順
+      @sakes = @sakes
+                .left_joins(:reviews)
+                .group(:id)
+                .select("sakes.*, COUNT(reviews.id) AS reviews_count")
+                .order("reviews_count DESC")
+    when "recommended"
+      # おすすめ順（例：甘口を優先）
+      @sakes = @sakes.order(Arel.sql("CASE WHEN flavor_type='sweet' THEN 0 ELSE 1 END"))
+    else
+      # 新着順（作成日が新しい順）
+      @sakes = @sakes.order(created_at: :desc)
     end
   end
 

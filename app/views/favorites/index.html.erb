@@ -1,0 +1,13 @@
+<h1><%= @user.name %>さんの気になる日本酒一覧</h1>
+
+<% if @favorite_sakes.any? %>
+  <div class="sake-cards">
+    <%= render partial: "sakes/sake_card", collection: @favorite_sakes, as: :sake %>
+  </div>
+<% else %>
+  <p>まだ「気になる」に登録された日本酒はありません。</p>
+<% end %>
+
+<div class="back-btn">
+  <%= link_to '戻る', 'javascript:history.back()', class: 'btn btn-secondary' %>
+</div>
