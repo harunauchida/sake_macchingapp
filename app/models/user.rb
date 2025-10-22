@@ -1,6 +1,13 @@
-class User < ApplicationRecord
+class User < ApplicationRecord  
   has_secure_password
 
+  # 関連付け
+  has_many :reviews, dependent: :destroy
+
+  # ActiveStorageでアイコン管理
+  has_one_attached :icon
+
+  # バリデーション
   # 名前とメールは必須（新規登録・編集共通）
   validates :name, presence: { message: "名前は必須です" }
   validates :email, presence: { message: "メールアドレスは必須です" }, 
@@ -14,4 +21,9 @@ class User < ApplicationRecord
   # 編集時は空欄でもOK（入力されていれば6文字以上）
   validates :password, length: { minimum: 6, message: "パスワードは6文字以上で入力してください" },
                        allow_nil: true, on: :update
+
+  # ゲストユーザー判定
+  def guest?
+    email == "guest@example.com"
+  end
 end

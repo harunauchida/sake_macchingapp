@@ -15,16 +15,6 @@
             <%= image_tag review.photo, class: "photo" %>
           </div>
         <% end %>
-
-        <% if review.user == current_user %>
-          <div class="review-actions">
-            <%= link_to "編集", edit_sake_review_path(@sake, review), class: "btn btn-small btn-secondary" %>
-            <%= button_to "削除", [@sake, review],
-                          method: :delete,
-                          onclick: "return confirm('本当に削除しますか？')",
-                          class: "btn btn-small btn-danger" %>
-          </div>
-        <% end %>
       </div>
     <% end %>
   </div>
