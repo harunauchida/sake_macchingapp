@@ -1,6 +1,6 @@
-<div class="sake-card">
-  <% if sake.image_path.present? %>
-    <%= image_tag(sake.image_path, alt: sake.name, class: "sake-image") %>
+<div class="sake-card"> 
+  <% if sake.image.attached? %>
+    <%= image_tag(sake.image, alt: sake.name, class: "sake-image") %>
   <% else %>
     <div class="sake-image-placeholder">No Image</div>
   <% end %>
@@ -10,8 +10,8 @@
 
   <!-- 星評価 -->
   <div class="sake-rating">
-  <%= star_rating(sake.average_rating) %> 
-  <span class="rating-number">(<%= sake.average_rating %>)</span>
+    <%= star_rating(sake.average_rating) %> 
+    <span class="rating-number">(<%= sake.average_rating %>)</span>
   </div>
 
   <!-- タイプ診断マーク -->
@@ -26,6 +26,26 @@
     %>
   </div>
 
-  <!-- レビューリンク -->
-  <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small" %>
+  <!-- ボタン群 -->
+  <div class="sake-buttons flex gap-2 mt-2">
+    <!-- 気になるボタン -->
+    <% if logged_in? %>
+      <% if current_user.favorited?(sake) %>
+        <%= button_to "★ 気になる解除",
+                      sake_favorite_path(sake),
+                      method: :delete,
+                      class: "btn btn-danger btn-small" %>
+      <% else %>
+        <%= button_to "☆ 気になる",
+                      sake_favorite_path(sake),
+                      method: :post,
+                      class: "btn btn-primary btn-small" %>
+      <% end %>
+    <% else %>
+      <p class="text-sm text-gray-500">ログインすると「気になる」機能が使えます</p>
+    <% end %>
+
+    <!-- レビューリンク -->
+    <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small" %>
+  </div>
 </div>
