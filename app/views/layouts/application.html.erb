@@ -1,4 +1,4 @@
-<!DOCTYPE html>  
+<!DOCTYPE html>
 <html>
   <head>
     <title>SakeMacchingapp</title>
@@ -30,9 +30,8 @@
               <%= link_to "アカウント情報", user_path(current_user), class: "dropdown-link" %>
 
               <%= form_with(url: logout_path, method: :delete, local: true, class: "logout-form") do %>
-                  <%= submit_tag "ログアウト", class: "dropdown-link" %>
+                <%= submit_tag "ログアウト", class: "dropdown-link" %>
               <% end %>
-
             </div>
           </details>
         <% else %>
@@ -45,6 +44,19 @@
       </div>
     </header>
 
-    <%= yield %>
+    <!-- メイン -->
+    <main>
+      <%= yield %>
+    </main>
+
+    <!-- フッター -->
+    <footer class="main-footer">
+      <p>© 2025 Sake Match. All rights reserved.</p>
+      <nav class="footer-links">
+        <%= link_to "プライバシーポリシー", "#", class: "footer-link" %> |
+        <%= link_to "利用規約", "#", class: "footer-link" %> |
+        <%= link_to "お問い合わせ", "#", class: "footer-link" %>
+      </nav>
+    </footer>
   </body>
 </html>

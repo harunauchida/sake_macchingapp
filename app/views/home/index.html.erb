@@ -1,18 +1,26 @@
-<h1>ようこそ、SAKE MATCHへ 🍶</h1>
-<p class="lead-text">あなたにぴったりの日本酒を見つけよう。</p>
+<!-- app/views/home/index.html.erb -->
+<div class="hero">
+  <img src="/assets/top_sake.jpg" alt="日本酒イメージ" class="hero-img">
+  <div class="hero-text">
+    <h1>ようこそ、SAKE MATCHへ </h1>
 
-<div class="button-group">
-  <%= link_to "診断を始める", new_type_diagnostic_path, class: "btn btn-primary btn-large" %>
+    <p class="lead-text">あなたにぴったりの日本酒を見つけよう</p>
+
+    <%= link_to "診断を始める", new_type_diagnostic_path, class: "btn btn-primary btn-large" %>
+  </div>
 </div>
+
+
 
 <h2>おすすめの日本酒</h2>
 <div class="sake-cards">
   <% if @all_sakes.present? %>
-    <!-- 一覧ページと共通のカード部分を呼び出す -->
     <%= render partial: "sakes/sake_card", collection: @all_sakes, as: :sake %>
   <% else %>
     <p>まだ登録された日本酒がありません。</p>
   <% end %>
 </div>
 
-<%= link_to "もっとみる", sakes_path, class: "btn btn-secondary" %>
+<div class="more-btn">
+  <%= link_to "もっとみる", sakes_path, class: "btn btn-secondary" %>
+</div>
