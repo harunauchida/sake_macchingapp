@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
   <head>
-    <title>SakeMacchingapp</title>
+    <title>SakeMatchingApp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -12,7 +12,12 @@
   <body>
     <!-- ヘッダー -->
     <header class="main-header">
-      <div class="logo">SAKE MATCH</div>
+      <!-- ロゴにトップページリンク -->
+      <div class="logo">
+        <%= link_to root_path, class: "logo-link" do %>
+          SAKE MATCH
+        <% end %>
+      </div>
 
       <div class="header-buttons">
         <% if logged_in? %>
@@ -36,9 +41,9 @@
           </details>
         <% else %>
           <div class="guest-buttons">
-            <%= link_to "ログイン", login_path, class: "btn btn-login" %>
-            <%= link_to "新規登録", signup_path, class: "btn btn-primary" %>
-            <%= link_to "ゲストログイン", guest_login_path, class: "btn btn-secondary" %>
+            <%= link_to "ログイン", login_path, class: "btn btn-login btn-small" %>
+            <%= link_to "新規登録", signup_path, class: "btn btn-primary btn-small" %>
+            <%= link_to "ゲストログイン", guest_login_path, class: "btn btn-secondary btn-small" %>
           </div>
         <% end %>
       </div>
@@ -53,8 +58,6 @@
     <footer class="main-footer">
       <p>© 2025 Sake Match. All rights reserved.</p>
       <nav class="footer-links">
-        <%= link_to "プライバシーポリシー", "#", class: "footer-link" %> |
-        <%= link_to "利用規約", "#", class: "footer-link" %> |
         <%= link_to "お問い合わせ", "#", class: "footer-link" %>
       </nav>
     </footer>

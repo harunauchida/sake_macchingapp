@@ -18,9 +18,17 @@
   font-weight: bold;
   color: #4b4b4b; 
 }
-.logo::before {
-  content: "🍶 ";
+
+.logo-link {
+  color: #4b4b4b;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 40px;
 }
+
+
+
+
 
 /* ヘッダー右上ボタン */
 .header-buttons {
@@ -431,4 +439,4 @@ body {
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #6a8e4e;
-
+}
