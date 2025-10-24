@@ -1,7 +1,7 @@
 @import "type_diagnostics";
 @import "sakes";
 
-/* --- ヘッダー --- */
+/*  ヘッダー */
 .main-header {
   display: flex;
   justify-content: space-between;
@@ -22,14 +22,14 @@
   content: "🍶 ";
 }
 
-/* --- ヘッダー右上ボタン --- */
+/* ヘッダー右上ボタン */
 .header-buttons {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-/* --- ゲスト用ボタン --- */
+/* ゲスト用ボタン */
 .guest-buttons a {
   padding: 8px 14px;
   font-size: 0.9em;
@@ -45,7 +45,7 @@
   color: white;
 }
 
-/* --- ユーザードロップダウン --- */
+/* ユーザードロップダウン*/
 .user-dropdown {
   position: relative;
   font-family: "Yu Mincho", serif;
@@ -75,32 +75,44 @@
   object-fit: cover;
 }
 
-.user-dropdown .dropdown-menu {
+/* ドロップダウン親 */
+.user-dropdown {
+  position: relative;
+  display: inline-block; /* ← 親幅をボタンに合わせる */
+  font-family: "Yu Mincho", serif;
+}
+
+/* ドロップダウンメニュー */
+.user-dropdown .dropdown-menu { 
   position: absolute;
   top: 110%;
-  right: 0;
+  left: 0;         
+  width: 100%;     
+  padding: 0;       
+  box-sizing: border-box; 
   background: linear-gradient(to bottom, #ffffff, #f9f7f4);
   border-radius: 12px;
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  min-width: 160px;
-  padding: 5px 0;
   opacity: 0;
   transform: translateY(-10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   z-index: 100;
   pointer-events: none;
 }
+
+/* ドロップダウン開いたとき */
 .user-dropdown[open] .dropdown-menu {
   opacity: 1;
   transform: translateY(0);
   pointer-events: auto;
 }
 
+/* ドロップダウンリンク */
 .user-dropdown .dropdown-menu a.dropdown-link,
 .user-dropdown .dropdown-menu form.logout-form input[type="submit"].dropdown-link {
   display: block;
-  width: 100%;
-  padding: 10px 16px;
+  width: 100%;             
+  padding: 10px 16px;     
   text-align: left;
   background: none;
   border: none;
@@ -108,16 +120,20 @@
   font-size: 1em;
   text-decoration: none;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: 0;        
+  box-sizing: border-box;
   transition: background 0.2s, color 0.2s;
+  font-family: "Yu Mincho", serif;
 }
+
+/* ホバー時 */
 .user-dropdown .dropdown-menu a.dropdown-link:hover,
 .user-dropdown .dropdown-menu form.logout-form input[type="submit"].dropdown-link:hover {
   background-color: #6a8e4e;
   color: white;
 }
 
-/* --- 共通ボタン --- */
+/* 共通ボタン */
 .btn {
   display: inline-block;
   margin: 10px;
@@ -158,8 +174,20 @@
   font-size: 1.1em;
   border-radius: 8px;
 }
+/* 診断するボタン*/
+.btn-diagnose {
+  padding: 20px 40px;      
+  font-size: 1.4em;        
+  border-radius: 12px;     
+  font-weight: bold;
+  transition: 0.2s;
+}
 
-/* --- トップページ全体 --- */
+.btn-diagnose:hover {
+  background-color: #5a7d42; /* ホバーで少し濃く */
+  color: white;
+}
+/*トップページ全体*/
 body {
   font-family: "Yu Mincho", serif;
   background-color: #ffffff;
@@ -167,7 +195,7 @@ body {
   color: #4b4b4b;
 }
 
-/* --- ヒーロー --- */
+/* ヒーロー*/
 .hero {
   position: relative;
   width: 100%;
@@ -197,8 +225,22 @@ body {
   font-size: 1.2em;
   margin-bottom: 15px;
 }
+/* 余白 */
+.site-description {
+  margin-bottom: 80px; 
+}
 
-/* --- 日本酒カード --- */
+.site-description .btn {
+  margin-top: 24px; 
+}
+/*もっと見るボタン*/
+.more-btn .btn {
+  font-size: 14px;         /* テキストを少し小さく */
+  padding: 8px 16px;       /* ボタンの上下・左右の余白を小さく */
+  border-radius: 6px;      /* 少し角を丸く（お好み） */
+}
+
+/* 日本酒カード*/
 .sake-cards {
   display: flex;
   flex-wrap: wrap;
@@ -218,6 +260,22 @@ body {
   transition: transform 0.2s;
   color: #4b4b4b;
 }
+
+.sake-cards {
+  margin-bottom: 40px; 
+}
+
+.more-btn {
+  text-align: center;
+  margin-bottom: 60px; 
+}
+
+.more-btn .btn {
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 6px;
+}
+
 .sake-card:hover {
   transform: translateY(-5px);
 }
@@ -254,7 +312,7 @@ body {
   display: inline-block;
 }
 
-/* --- 日本酒一覧順番リンク --- */
+/* 日本酒一覧順番リンク */
 .sake-cards-wrapper {
   position: relative;
 }
@@ -281,7 +339,7 @@ body {
   text-decoration: underline;
 }
 
-/* --- フッター --- */
+/* フッター */
 .main-footer {
   background-color: #ffffff;
   color: #4b4b4b;
@@ -308,3 +366,62 @@ body {
   color: #8fa77a;
   text-decoration: underline;
 }
+
+
+/* アカウント情報 */
+.user-form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 25px;
+  background-color: #fff8e1;  
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: "Yu Mincho", serif;
+  color: #4b4b4b;
+}
+
+.user-form h1 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 25px;
+}
+
+.user-form .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.user-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-family: "Yu Mincho", serif;
+}
+
+.user-form input.form-control,
+.user-form textarea.form-control,
+.user-form select.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  font-family: "Yu Mincho", serif;
+  box-sizing: border-box;
+}
+
+.user-form textarea.form-control {
+  resize: vertical;
+}
+
+.user-form .current-icon {
+  margin-top: 10px;
+}
+
+.user-form .user-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #6a8e4e;
+
