@@ -1,4 +1,4 @@
-<div class="sake-card"> 
+<div class="sake-card">
   <% if sake.image.attached? %>
     <%= image_tag(sake.image, alt: sake.name, class: "sake-image") %>
   <% else %>
@@ -10,7 +10,7 @@
 
   <!-- 星評価 -->
   <div class="sake-rating">
-    <%= star_rating(sake.average_rating) %> 
+    <%= star_rating(sake.average_rating) %>
     <span class="rating-number">(<%= sake.average_rating %>)</span>
   </div>
 
@@ -26,26 +26,27 @@
     %>
   </div>
 
-  <!-- ボタン群 -->
-  <div class="sake-buttons flex gap-2 mt-2">
-    <!-- 気になるボタン -->
-    <% if logged_in? %>
-      <% if current_user.favorited?(sake) %>
-        <%= button_to "★ 気になる解除",
-                      sake_favorite_path(sake),
-                      method: :delete,
-                      class: "btn btn-danger btn-small" %>
-      <% else %>
-        <%= button_to "☆ 気になる",
-                      sake_favorite_path(sake),
-                      method: :post,
-                      class: "btn btn-primary btn-small" %>
-      <% end %>
-    <% else %>
-      <p class="text-sm text-gray-500">ログインすると「気になる」機能が使えます</p>
-    <% end %>
+  <!-- レビューリンク -->
+  <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small mt-2" %>
 
-    <!-- レビューリンク -->
-    <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small" %>
-  </div>
+  <!-- 気になるボタン-->
+  <% if logged_in? %>
+    <div class="sake-favorite-button">
+      <% if current_user.favorited?(sake) %>
+        <%= button_to sake_favorite_path(sake),
+                      method: :delete,
+                      class: "favorite-btn favorited" do %>
+          ♥
+        <% end %>
+      <% else %>
+        <%= button_to sake_favorite_path(sake),
+                      method: :post,
+                      class: "favorite-btn" do %>
+        ♥
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-sm text-gray-500 mt-2">ログインすると「気になる」機能が使えます</p>
+  <% end %>
 </div>

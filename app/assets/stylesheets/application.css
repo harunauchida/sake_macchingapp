@@ -444,3 +444,32 @@ body {
   object-fit: cover;
   border: 2px solid #6a8e4e;
 }
+
+/* 酒カードのお気に入り機能 */
+.sake-card {
+  position: relative; /* ボタンをカード内に固定するため*/
+  padding: 15px;
+  border-radius: 12px;
+  background-color: #fff8e1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sake-favorite-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size:50px; /* ハートサイズ */
+  cursor: pointer;
+  color: #6a8e4e;
+}
+
+.favorite-btn.favorited {
+  color: red; /* すでにお気に入りの場合は赤 */
+}
+
