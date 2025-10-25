@@ -31,7 +31,7 @@
             </summary>
 
             <div class="dropdown-menu">
-              <%= link_to "マイレビュー", user_reviews_path(current_user), class: "dropdown-link" %>
+              <%= link_to "マイページ", user_reviews_path(current_user), class: "dropdown-link" %>
               <%= link_to "設定", user_path(current_user), class: "dropdown-link" %>
 
               <%= form_with(url: logout_path, method: :delete, local: true, class: "logout-form") do %>
