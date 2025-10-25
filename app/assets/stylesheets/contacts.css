@@ -1,0 +1,44 @@
+.contact-form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #fff8e1;  
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: "Yu Mincho", serif;
+    color: #4b4b4b;
+}
+
+.contact-form-container h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 25px;
+}
+
+.contact-form .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+    font-family: "Yu Mincho", serif;
+}
+
+.contact-form input.form-control,
+.contact-form textarea.form-control,
+.contact-form select.form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    font-family: "Yu Mincho", serif;
+    box-sizing: border-box;
+}
+
+.contact-form textarea.form-control {
+    resize: vertical;
+}

@@ -33,6 +33,7 @@
             <div class="dropdown-menu">
               <%= link_to "マイページ", user_reviews_path(current_user), class: "dropdown-link" %>
               <%= link_to "設定", user_path(current_user), class: "dropdown-link" %>
+              <%= link_to "お問い合わせ", contact_path, class: "dropdown-link" %>
 
               <%= form_with(url: logout_path, method: :delete, local: true, class: "logout-form") do %>
                 <%= submit_tag "ログアウト", class: "dropdown-link" %>
@@ -54,12 +55,13 @@
       <%= yield %>
     </main>
 
-    <!-- フッター -->
+  <!-- フッター -->
     <footer class="main-footer">
       <p>© 2025 Sake Match. All rights reserved.</p>
       <nav class="footer-links">
-        <%= link_to "お問い合わせ", "#", class: "footer-link" %>
+        <%= link_to "お問い合わせ", new_contact_path, class: "footer-link" %>
       </nav>
     </footer>
+
   </body>
 </html>

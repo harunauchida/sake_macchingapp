@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # ユーザー関連
   resources :users, only: [:new, :create, :show, :edit, :update] do
     # マイページ用レビュー操作
-    resources :reviews, only: [:index, :edit, :update, :destroy], controller: 'user_reviews'
+  resources :reviews, only: [:index, :edit, :update, :destroy], controller: 'user_reviews'
 
     # お気に入り一覧（マイページ用）
     get 'favorites', to: 'favorites#index', as: 'favorites'
@@ -22,6 +22,12 @@ Rails.application.routes.draw do
   post   "/login",       to: "sessions#create"
   delete "/logout",      to: "sessions#destroy", as: "logout"
   get    "/guest_login", to: "sessions#guest_login"
+
+  # お問い合わせ
+  get  'contact', to: 'contacts#new'
+  post 'contact', to: 'contacts#create'
+  resources :contacts, only: [:new, :create]
+
 
   # 日本酒・レビュー・お気に入り関連
   resources :sakes do
