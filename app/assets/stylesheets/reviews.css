@@ -1,0 +1,81 @@
+/* レビュー一覧 */
+.review-list {
+  margin-top: 20px;
+}
+
+.review-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-family: "Yu Mincho", serif;
+  color: #4b4b4b;
+}
+
+.review-card strong {
+  color: #333;
+}
+
+.review-card .photo {
+  width: 100%;
+  max-width: 300px;
+  margin-top: 10px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* レビュー投稿フォーム*/
+.review-form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 25px;
+  background-color: #fff8e1;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: "Yu Mincho", serif;
+  color: #4b4b4b;
+}
+
+.review-form .form-group {
+  margin-bottom: 20px;
+}
+
+.review-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-family: "Yu Mincho", serif;
+}
+
+.review-form input,
+.review-form textarea,
+.review-form select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  box-sizing: border-box;
+  font-family: "Yu Mincho", serif;
+}
+
+/* 戻るボタン */
+.btn-secondary {
+  background-color: #ccc;
+  color: #333;
+  padding: 8px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-secondary:hover {
+  background-color: #aaa;
+}
+
+/* 全体レイアウト補正 */
+.back-link {
+  text-align: center;
+  margin-top: 20px;
+}

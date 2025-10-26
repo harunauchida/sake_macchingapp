@@ -1,0 +1,27 @@
+<h1>レビュー編集</h1>
+
+<%= form_with(model: [ @user, @review ], local: true, html: { multipart: true }) do |f| %>
+  <div class="form-group">
+    <%= f.label :rating, "評価" %>
+    <%= f.number_field :rating, in: 1..5, step: 1, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :content, "コメント" %>
+    <%= f.text_area :content, rows: 5, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :photo, "写真" %>
+    <%= f.file_field :photo, class: "form-control" %>
+    <% if @review.photo.attached? %>
+      <p>現在の画像:</p>
+      <%= image_tag @review.photo, class: "sake-image" %>
+    <% end %>
+  </div>
+
+  <div class="form-group mt-3">
+    <%= f.submit "更新", class: "btn btn-primary" %>
+    <%= link_to "戻る", user_reviews_path(@user), class: "btn btn-secondary ml-2" %>
+  </div>
+<% end %>

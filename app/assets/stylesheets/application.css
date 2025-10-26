@@ -1,15 +1,474 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+@import "type_diagnostics";
+@import "sakes";
+@import "reviews";
+@import "contacts";
+
+/*  ヘッダー */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 40px;
+  background-color: #ffffff; 
+  font-family: "Yu Mincho", serif;
+  border-bottom: 1px solid #e0dcd5; 
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05); 
+}
+
+.logo {
+  font-size: 2em;
+  font-weight: bold;
+  color: #4b4b4b; 
+}
+
+.logo-link {
+  color: #4b4b4b;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+
+
+
+
+/* ヘッダー右上ボタン */
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ゲスト用ボタン */
+.guest-buttons a {
+  padding: 8px 14px;
+  font-size: 0.9em;
+  text-decoration: none;
+  color: #6a8e4e;
+  border: 1px solid #6a8e4e;
+  border-radius: 8px;
+  background-color: #fffdf8;
+  transition: background-color 0.2s, color 0.2s;
+}
+.guest-buttons a:hover {
+  background-color: #6a8e4e;
+  color: white;
+}
+
+/* ユーザードロップダウン*/
+.user-dropdown {
+  position: relative;
+  font-family: "Yu Mincho", serif;
+}
+
+.user-dropdown summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  color: #4b4b4b;
+}
+.user-dropdown summary:hover {
+  background-color: #f0efea;
+}
+
+.user-dropdown .user-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #6a8e4e;
+  object-fit: cover;
+}
+
+/* ドロップダウン親 */
+.user-dropdown {
+  position: relative;
+  display: inline-block; /* ← 親幅をボタンに合わせる */
+  font-family: "Yu Mincho", serif;
+}
+
+/* ドロップダウンメニュー */
+.user-dropdown .dropdown-menu { 
+  position: absolute;
+  top: 110%;
+  left: 0;         
+  width: 100%;     
+  padding: 0;       
+  box-sizing: border-box; 
+  background: linear-gradient(to bottom, #ffffff, #f9f7f4);
+  border-radius: 12px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 100;
+  pointer-events: none;
+}
+
+/* ドロップダウン開いたとき */
+.user-dropdown[open] .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* ドロップダウンリンク */
+.user-dropdown .dropdown-menu a.dropdown-link,
+.user-dropdown .dropdown-menu form.logout-form input[type="submit"].dropdown-link {
+  display: block;
+  width: 100%;             
+  padding: 10px 1px;     
+  background: none;
+  border: none;
+  color: #4b4b4b;
+  font-size: 1em;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 0;        
+  box-sizing: border-box;
+  transition: background 0.2s, color 0.2s;
+  font-family: "Yu Mincho", serif;
+}
+
+/* ホバー時 */
+.user-dropdown .dropdown-menu a.dropdown-link:hover,
+.user-dropdown .dropdown-menu form.logout-form input[type="submit"].dropdown-link:hover {
+  background-color: #6a8e4e;
+  color: white;
+}
+
+/* 共通ボタン */
+.btn {
+  display: inline-block;
+  margin: 8px;
+  padding: 10px 20px;          
+  font-size: 1em;               
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: 0.2s;
+  font-family: "Yu Mincho", serif;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
+}
+.btn-primary {
+  background-color: #6a8e4e !important;
+  color: white !important;
+}
+.btn-primary:hover {
+  background-color: #5a7d42 !important;
+}
+.btn-secondary {
+  background-color: #f2c8a0 !important;
+  color: white !important;
+}
+.btn-secondary:hover {
+  background-color: #e0a77a !important;
+}
+.btn-login {
+  background-color: #888888 !important;
+  color: white !important;
+}
+.btn-login:hover {
+  background-color: #666666 !important;
+}
+.btn-small {
+  padding: 10px 20px;
+  font-size: 1.0em;
+}
+.btn-large {
+  padding: 12px 24px;
+  font-size: 1.5em;
+  border-radius: 8px;
+}
+
+.btn-login-small {
+  padding: 10px 18px;
+  font-size: 1em;
+  border-radius: 8px;
+}
+/* 診断するボタン*/
+.btn-diagnose {
+  padding: 20px 40px;      
+  font-size: 1.4em;        
+  border-radius: 12px;     
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.btn-diagnose:hover {
+  background-color: #5a7d42; /* ホバーで少し濃く */
+  color: white;
+}
+/*トップページ全体*/
+body {
+  font-family: "Yu Mincho", serif;
+  background-color: #ffffff;
+  text-align: center;
+  color: #4b4b4b;
+}
+
+/* ヒーロー*/
+.hero {
+  position: relative;
+  width: 100%;
+  height: 350px;
+  margin-bottom: 40px;
+}
+.hero-img {
+  width: 100%;
+  height: 90%;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #4b4b4b;
+  text-align: center;
+  font-family: "Yu Mincho", serif;
+}
+.hero-text h1 {
+  font-size: 2.9em;
+  margin-bottom: 10px;
+}
+.hero-text p.lead-text {
+  font-size: 1.2em;
+  margin-bottom: 15px;
+}
+/* 余白 */
+.site-description {
+  margin-bottom: 80px; 
+}
+
+.site-description .btn {
+  margin-top: 24px; 
+}
+/*もっと見るボタン*/
+.more-btn .btn {
+  font-size: 14px;         /* テキストを少し小さく */
+  padding: 8px 16px;       /* ボタンの上下・左右の余白を小さく */
+  border-radius: 6px;      /* 少し角を丸く（お好み） */
+}
+
+/* 日本酒カード*/
+.sake-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+}
+.sake-card {
+  width: 300px;
+  padding: 15px;
+  background-color: #fff8f0;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s;
+  color: #4b4b4b;
+}
+
+.sake-cards {
+  margin-bottom: 40px; 
+}
+
+.more-btn {
+  text-align: center;
+  margin-bottom: 60px; 
+}
+
+.more-btn .btn {
+  font-size: 20px;
+  padding: 16px 32px;
+  border-radius: 12px;
+}
+
+.sake-card:hover {
+  transform: translateY(-5px);
+}
+.sake-image {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.sake-image-placeholder {
+  width: 100%;
+  height: 150px;
+  background-color: #e0dcd1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888;
+  margin-bottom: 10px;
+}
+.sake-rating {
+  color: #f2c8a0;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+.sake-type-mark {
+  background-color: #6a8e4e;
+  color: white;
+  font-size: 0.85em;
+  padding: 3px 6px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+/* 日本酒一覧順番リンク */
+.sake-cards-wrapper {
+  position: relative;
+}
+.sort-links {
+  position: absolute;
+  top: -35px;
+  right: 170px;
+  text-align: right;
+  z-index: 10;
+  font-size: 0.75rem;
+}
+.sort-links span {
+  margin-right: 0.3rem;
+  font-weight: bold;
+}
+.sort-link {
+  font-size: 0.75rem;
+  padding: 1px 4px;
+  color: #007bff;
+  text-decoration: none;
+  margin-left: 0.3rem;
+}
+.sort-link:hover {
+  text-decoration: underline;
+}
+
+/* フッター */
+.main-footer {
+  background-color: #ffffff;
+  color: #4b4b4b;
+  text-align: center;
+  padding: 30px 10px;
+  font-size: 0.9em;
+  margin-top: 50px;
+  border-top: 1px solid #e0dcd5;
+  font-family: "Yu Mincho", serif;
+}
+
+.footer-links {
+  margin-top: 10px;
+}
+
+.footer-link {
+  color: #6a8e4e;
+  text-decoration: none;
+  margin: 0 8px;
+  transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+  color: #8fa77a;
+  text-decoration: underline;
+}
+
+
+/* アカウント情報 */
+.user-form {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 25px;
+  background-color: #fff8e1;  
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: "Yu Mincho", serif;
+  color: #4b4b4b;
+}
+
+.user-form h1 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 25px;
+}
+
+.user-form .form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.user-form label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: bold;
+  font-family: "Yu Mincho", serif;
+}
+
+.user-form input.form-control,
+.user-form textarea.form-control,
+.user-form select.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  font-family: "Yu Mincho", serif;
+  box-sizing: border-box;
+}
+
+.user-form textarea.form-control {
+  resize: vertical;
+}
+
+.user-form .current-icon {
+  margin-top: 10px;
+}
+
+.user-form .user-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #6a8e4e;
+}
+
+/* 酒カードのお気に入り機能 */
+.sake-card {
+  position: relative; /* ボタンをカード内に固定するため*/
+  padding: 15px;
+  border-radius: 12px;
+  background-color: #fff8e1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.sake-favorite-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size:50px; /* ハートサイズ */
+  cursor: pointer;
+  color: #6a8e4e;
+}
+
+.favorite-btn.favorited {
+  color: red; /* すでにお気に入りの場合は赤 */
+}
+

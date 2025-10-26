@@ -1,0 +1,14 @@
+<h1>アカウント情報</h1>
+
+<p><strong>名前:</strong> <%= @user.name %></p>
+<p><strong>メール:</strong> <%= @user.email %></p>
+<% if @user.bio.present? %>
+  <p><strong>プロフィール:</strong> <%= @user.bio %></p>
+<% end %>
+<% if @user.icon&.attached? %>
+  <p><strong>アイコン:</strong></p>
+  <%= image_tag @user.icon, class: "user-icon" %>
+<% end %>
+
+<%= link_to "編集", edit_user_path(@user), class: "btn btn-primary" %>
+<%= link_to "戻る", root_path, class: "btn btn-secondary" %>

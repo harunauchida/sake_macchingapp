@@ -1,0 +1,65 @@
+<h1><%= @sake.name %></h1> 
+<p><%= @sake.description %></p>
+
+<h2>レビュー一覧</h2>
+<% if @reviews.present? %>
+  <div class="review-list">
+    <% @reviews.each do |review| %>
+      <div class="review-card">
+        <strong><%= review.user.name %></strong>：
+        <span>★<%= review.rating %></span>
+        <p><%= review.content %></p>
+
+        <% if review.photo.attached? %>
+          <div class="review-photo">
+            <%= image_tag review.photo, class: "photo" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>まだレビューはありません。</p>
+<% end %>
+
+<h2>レビュー投稿</h2>
+<% if logged_in? %>
+  <div class="review-form">
+    <% if @review.errors.any? %>
+      <div class="alert alert-danger">
+        <ul>
+          <% @review.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= form_with(model: [@sake, @review], local: true, html: { multipart: true }) do |f| %>
+      <div class="form-group">
+        <%= f.label :rating, "評価（1〜5）" %><br>
+        <%= f.select :rating, options_for_select(1..5, @review.rating),
+                    { prompt: "選択してください" },
+                    class: "review-rating", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :content, "コメント" %><br>
+        <%= f.text_area :content, rows: 3, placeholder: "レビューを書く", class: "review-content", required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :photo, "写真（任意）" %><br>
+        <%= f.file_field :photo, class: "review-photo" %>
+      </div>
+
+      <%= f.submit "投稿", class: "btn btn-primary btn-small" %>
+    <% end %>
+  </div>
+<% else %>
+  <p><%= link_to "ログインしてレビューを書く", login_path %></p>
+<% end %>
+
+<div class="back-link">
+  <%= link_to "戻る", root_path, class: "btn btn-secondary" %>
+</div>

@@ -1,0 +1,57 @@
+<div class="sake-card"> 
+  <% if sake.image.attached? %>
+    <%= image_tag(sake.image, alt: sake.name, class: "sake-image") %>
+  <% else %>
+    <div class="sake-image-placeholder">No Image</div>
+  <% end %>
+
+  <h3><%= sake.name %></h3>
+  <p><%= truncate(sake.description, length: 50) %></p>
+
+  <!-- 星評価 -->
+  <div class="sake-rating">
+    <%= star_rating(sake.average_rating) %>
+    <span class="rating-number">(<%= sake.average_rating %>)</span>
+  </div>
+
+  <!-- タイプ診断マーク -->
+  <div class="sake-type-mark">
+    <%=
+      case sake.flavor_type
+      when "sweet" then "甘口タイプおすすめ 🍯"
+      when "medium" then "中口タイプおすすめ 🌾"
+      when "dry" then "辛口タイプおすすめ 🔥"
+      else "タイプ診断おすすめ 🍶"
+      end
+    %>
+  </div>
+
+  <!-- レビューリンク -->
+  <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small mt-2" %>
+
+  <!-- 気になるボタン -->
+  <div class="sake-favorite-button">
+    <% if logged_in? && !current_user.guest? %>
+      <% if current_user.favorited?(sake) %>
+        <%= button_to sake_favorite_path(sake),
+                      method: :delete,
+                      class: "favorite-btn favorited" do %>
+          ♥
+        <% end %>
+      <% else %>
+        <%= button_to sake_favorite_path(sake),
+                      method: :post,
+                      class: "favorite-btn" do %>
+          ♥
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= button_to "#",
+                    class: "favorite-btn disabled",
+                    disabled: true,
+                    title: "ゲストユーザーは使用できません" do %>
+        ♥
+      <% end %>
+    <% end %>
+  </div>
+</div>

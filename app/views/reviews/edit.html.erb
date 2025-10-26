@@ -1,0 +1,29 @@
+<h1>レビュー編集</h1>
+
+<% if @review.errors.any? %>
+  <div class="alert alert-danger">
+    <ul>
+      <% @review.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: [@sake, @review], local: true) do |f| %>
+  <div style="margin-bottom:10px;">
+    <%= f.label :rating, "評価（1〜5）" %><br>
+    <%= f.select :rating, options_for_select(1..5, @review.rating), { prompt: "選択してください" }, class: "review-rating", required: true %>
+  </div>
+
+  <div style="margin-bottom:10px;">
+    <%= f.label :content, "コメント" %><br>
+    <%= f.text_area :content, rows: 3, placeholder: "レビュー内容を入力", class: "review-content", required: true %>
+  </div>
+
+  <%= f.submit "更新", class: "btn btn-primary" %>
+<% end %>
+
+<div style="margin-top:20px;">
+  <%= link_to "戻る", sake_path(@sake), class: "btn btn-secondary" %>
+</div>

@@ -1,16 +1,67 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html>
   <head>
-    <title>SakeMacchingapp</title>
+    <title>SakeMatchingApp</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <%= yield %>
+    <!-- ヘッダー -->
+    <header class="main-header">
+      <!-- ロゴにトップページリンク -->
+      <div class="logo">
+        <%= link_to root_path, class: "logo-link" do %>
+          SAKE MATCH
+        <% end %>
+      </div>
+
+      <div class="header-buttons">
+        <% if logged_in? %>
+          <details class="user-dropdown">
+            <summary>
+              <%= image_tag(
+                    current_user.icon&.attached? ? current_user.icon : "default_icon.jpg",
+                    class: "user-icon"
+                  ) %>
+              <span class="user-name"><%= current_user.name %></span>
+            </summary>
+
+            <div class="dropdown-menu">
+              <%= link_to "マイページ", user_reviews_path(current_user), class: "dropdown-link" %>
+              <%= link_to "設定", user_path(current_user), class: "dropdown-link" %>
+              <%= link_to "お問い合わせ", contact_path, class: "dropdown-link" %>
+
+              <%= form_with(url: logout_path, method: :delete, local: true, class: "logout-form") do %>
+                <%= submit_tag "ログアウト", class: "dropdown-link" %>
+              <% end %>
+            </div>
+          </details>
+        <% else %>
+          <div class="guest-buttons">
+            <%= link_to "ログイン", login_path, class: "btn btn-login btn-small" %>
+            <%= link_to "新規登録", signup_path, class: "btn btn-primary btn-small" %>
+            <%= link_to "ゲストログイン", guest_login_path, class: "btn btn-secondary btn-small" %>
+          </div>
+        <% end %>
+      </div>
+    </header>
+
+    <!-- メイン -->
+    <main>
+      <%= yield %>
+    </main>
+
+  <!-- フッター -->
+    <footer class="main-footer">
+      <p>© 2025 Sake Match. All rights reserved.</p>
+      <nav class="footer-links">
+        <%= link_to "お問い合わせ", new_contact_path, class: "footer-link" %>
+      </nav>
+    </footer>
+
   </body>
 </html>

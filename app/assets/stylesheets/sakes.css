@@ -1,0 +1,86 @@
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.search-form {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  font-size: 16px;
+  outline: none;
+  transition: 0.2s;
+}
+
+.search-input:focus {
+  border-color: #9c835f;
+  box-shadow: 0 0 5px rgba(156, 131, 95, 0.4);
+}
+
+.search-button {
+  background-color: #9c835f;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.search-button:hover {
+  background-color: #b59a6b;
+}
+
+.no-result {
+  text-align: center;
+  font-size: 18px;
+  color: #666;
+  margin-top: 40px;
+}
+.type-label {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+/* 甘口ラベル */
+.type-label.sweet {
+  background-color: #f7a8b8;
+}
+
+/* 辛口ラベル */
+.type-label.dry {
+  background-color: #6495ed;
+}
+
+/* 中口ラベル */
+.type-label.medium {
+  background-color: #f0c040;
+}
+/* 星評価 */
+.sake-rating {
+  font-size: 1.1rem;
+  color: #f39c12; /* 星の色 */
+  margin-bottom: 0.5rem;
+}
+
+.sake-rating .rating-number {
+  font-size: 0.9rem;
+  color: #333;
+  margin-left: 0.3rem;
+}

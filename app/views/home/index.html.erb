@@ -1,0 +1,32 @@
+<div class="hero">
+  <img src="/assets/top_sake.jpg" alt="日本酒イメージ" class="hero-img">
+  <div class="hero-text">
+    <h1>ようこそ、SAKE MATCHへ</h1>
+  </div>
+</div>
+
+<!-- サイト紹介 -->
+<div class="site-description text-center">
+  <h2 class="catch-copy">もっと自由に、日本酒を楽しもう。</h2>
+  <p class="description-text">
+    日本酒って、実はもっと自由で楽しい。<br>
+    あなたの“好き”から見つかる、とっておきの一杯を。
+  </p>
+  <%= link_to "診断を始める", new_type_diagnostic_path, class: "btn btn-primary btn-large mt-4" %>
+</div>
+
+<!-- おすすめの日本酒 -->
+<section class="recommended-sake">
+  <h2>おすすめの日本酒</h2>
+  <div class="sake-cards">
+    <% if @all_sakes.present? %>
+      <%= render partial: "sakes/sake_card", collection: @all_sakes, as: :sake %>
+    <% else %>
+      <p>まだ登録された日本酒がありません。</p>
+    <% end %>
+  </div>
+
+  <div class="more-btn">
+    <%= link_to "もっとみる", sakes_path, class: "btn btn-secondary" %>
+  </div>
+</section>
