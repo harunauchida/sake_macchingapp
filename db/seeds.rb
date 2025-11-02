@@ -1,4 +1,4 @@
-sakes = [  
+sakes = [   
   { id: 66, name: '獺祭 純米大吟醸', description: 'フルーティで華やかな香り' },
   { id: 67, name: '八海山 特別純米', description: 'スッキリとした味わい' },
   { id: 68, name: '黒龍 いっちょらい', description: '軽やかで飲みやすい' },
@@ -18,7 +18,6 @@ sakes = [
   { id: 82, name: '南部美人', description: '優しい味わい' },
   { id: 83, name: '黒龍', description: '上品で飲みやすい' },
 ]
-
 
 sake_images = {
   66 => "sakes/dassai.png",
@@ -41,7 +40,6 @@ sake_images = {
   83 => "sakes/kuroryu.png",
 }
 
-
 Sake.where(id: sakes.map { |s| s[:id] }).destroy_all
 
 
@@ -50,7 +48,7 @@ sakes.each do |s|
     id: s[:id],
     name: s[:name],
     description: s[:description],
-    image_path: sake_images[s[:id]] # public 配下のパス
+    image_path: "/images/#{sake_images[s[:id]]}" 
   )
 end
 
