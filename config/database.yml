@@ -2,10 +2,14 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("DB_USERNAME", "portfolio_db_6ybm_user") %>
+  password: <%= ENV.fetch("DB_PASSWORD", "nKPYEB8Dc9d1hCTn9AmWeafeu4U3pemG") %>
+  host: <%= ENV.fetch("DB_HOST", "dpg-d43kte6uk2gs7397lg20-a") %>
+  port: 5432
 
 development:
   <<: *default
-  database: potepancamp_development
+  database: <%= ENV.fetch("DB_NAME", "portfolio_db_6ybm") %>
 
 test:
   <<: *default
