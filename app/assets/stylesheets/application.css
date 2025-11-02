@@ -3,9 +3,6 @@
  *= require_self
  */
 
-@import "sakes";
-@import "reviews";
-@import "contacts";
 
 /*  ヘッダー */
 .main-header {
