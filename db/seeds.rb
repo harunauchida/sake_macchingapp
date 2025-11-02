@@ -1,4 +1,4 @@
-sakes = [ 
+sakes = [  
   { id: 66, name: '獺祭 純米大吟醸', description: 'フルーティで華やかな香り' },
   { id: 67, name: '八海山 特別純米', description: 'スッキリとした味わい' },
   { id: 68, name: '黒龍 いっちょらい', description: '軽やかで飲みやすい' },
@@ -18,14 +18,6 @@ sakes = [
   { id: 82, name: '南部美人', description: '優しい味わい' },
   { id: 83, name: '黒龍', description: '上品で飲みやすい' },
 ]
-
-
-Sake.where(id: sakes.map { |s| s[:id] }).destroy_all
-sakes.each do |s|
-  Sake.create!(s.merge(image_path: sake_images[s[:id]]))
-end
-
-puts "Created #{Sake.count} Sake records"
 
 
 sake_images = {
@@ -50,11 +42,17 @@ sake_images = {
 }
 
 
-Sake.all.each do |sake|
-  filename = sake_images[sake.id]
-  if filename && File.exist?(Rails.root.join("app/assets/images/sakes/#{filename}"))
-    sake.update(image_path: "sakes/#{filename}")
+Sake.where(id: sakes.map { |s| s[:id] }).destroy_all
+
+
+sakes.each do |s|
+  filename = sake_images[s[:id]]
+  if filename && File.exist?(Rails.root.join("public/sakes/#{filename}"))
+    Sake.create!(s.merge(image_path: "sakes/#{filename}"))
   else
     puts "File not found: #{filename}" if filename
+    Sake.create!(s.merge(image_path: nil))
   end
 end
+
+puts "Created #{Sake.count} Sake records"
