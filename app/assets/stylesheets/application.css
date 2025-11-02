@@ -3,7 +3,6 @@
  *= require_self
  */
 
-@import "type_diagnostics";
 @import "sakes";
 @import "reviews";
 @import "contacts";
