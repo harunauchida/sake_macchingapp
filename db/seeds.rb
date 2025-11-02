@@ -1,4 +1,4 @@
-sakes = [
+sakes = [ 
   { id: 66, name: '獺祭 純米大吟醸', description: 'フルーティで華やかな香り' },
   { id: 67, name: '八海山 特別純米', description: 'スッキリとした味わい' },
   { id: 68, name: '黒龍 いっちょらい', description: '軽やかで飲みやすい' },
@@ -21,8 +21,6 @@ sakes = [
 
 
 Sake.where(id: sakes.map { |s| s[:id] }).destroy_all
-
-
 sakes.each do |s|
   Sake.create!(s)
 end
@@ -30,7 +28,7 @@ end
 puts "Created #{Sake.count} Sake records"
 
 
-sake_images = { 
+sake_images = {
   66 => "dassai.png",
   67 => "hakkaisan.png",
   68 => "kokuryu_icchorai.jpg",
@@ -51,19 +49,12 @@ sake_images = {
   83 => "kuroryu.png",
 }
 
-sake_images.each do |id, filename|
-  sake = Sake.find_by(id: id)
-  next unless sake
 
-  file_path = Rails.root.join("app/assets/images/sakes/#{filename}")
-  if File.exist?(file_path)
-    sake.image.attach(
-      io: File.open(file_path),
-      filename: filename,
-      content_type: "image/png"
-    )
-    puts "Attached image for #{sake.name}"
+Sake.all.each do |sake|
+  filename = sake_images[sake.id]
+  if filename && File.exist?(Rails.root.join("app/assets/images/sakes/#{filename}"))
+    sake.update(image_path: "sakes/#{filename}")
   else
-    puts "File not found: #{filename}"
+    puts "File not found: #{filename}" if filename
   end
 end
