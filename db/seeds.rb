@@ -22,7 +22,7 @@ sakes = [
 
 Sake.where(id: sakes.map { |s| s[:id] }).destroy_all
 sakes.each do |s|
-  Sake.create!(s)
+  Sake.create!(s.merge(image_path: sake_images[s[:id]]))
 end
 
 puts "Created #{Sake.count} Sake records"

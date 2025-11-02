@@ -1,4 +1,4 @@
-<div class="hero">
+<div class="hero"> 
   <%= image_tag "top_sake.jpg", alt: "日本酒イメージ", class: "hero-img" %>
   <div class="hero-text">
     <h1>ようこそ、SAKE MATCHへ</h1>
@@ -22,7 +22,7 @@
     <% if @all_sakes.present? %>
       <%= render partial: "sakes/sake_card", collection: @all_sakes, as: :sake %>
     <% else %>
-      <p>まだ登録された日本酒がありません。</p>
+      <p class="no-sakes">まだ登録された日本酒がありません。</p>
     <% end %>
   </div>
 
