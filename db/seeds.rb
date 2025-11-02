@@ -21,24 +21,24 @@ sakes = [
 
 
 sake_images = {
-  66 => "dassai.png",
-  67 => "hakkaisan.png",
-  68 => "kokuryu_icchorai.jpg",
-  69 => "kubota_senju.png",
-  70 => "tasake_junmai.png",
-  71 => "juuyondai.png",
-  72 => "shinsei.png",
-  73 => "jikon_junmmai.png",
-  74 => "akishika.png",
-  75 => "tengumai.png",
-  76 => "kuromatu.png",
-  77 => "jinkyuuheiji.png",
-  78 => "shirabaku.png",
-  79 => "jikon_tokubetujunmai.png",
-  80 => "yukino_shukusha.png",
-  81 => "shinseiseisi.png",
-  82 => "nanbubijin.png",
-  83 => "kuroryu.png",
+  66 => "sakes/dassai.png",
+  67 => "sakes/hakkaisan.png",
+  68 => "sakes/kokuryu_icchorai.jpg",
+  69 => "sakes/kubota_senju.png",
+  70 => "sakes/tasake_junmai.png",
+  71 => "sakes/juuyondai.png",
+  72 => "sakes/shinsei.png",
+  73 => "sakes/jikon_junmmai.png",
+  74 => "sakes/akishika.png",
+  75 => "sakes/tengumai.png",
+  76 => "sakes/kuromatu.png",
+  77 => "sakes/jinkyuuheiji.png",
+  78 => "sakes/shirabaku.png",
+  79 => "sakes/jikon_tokubetujunmai.png",
+  80 => "sakes/yukino_shukusha.png",
+  81 => "sakes/shinseiseisi.png",
+  82 => "sakes/nanbubijin.png",
+  83 => "sakes/kuroryu.png",
 }
 
 
@@ -46,13 +46,12 @@ Sake.where(id: sakes.map { |s| s[:id] }).destroy_all
 
 
 sakes.each do |s|
-  filename = sake_images[s[:id]]
-  if filename && File.exist?(Rails.root.join("public/sakes/#{filename}"))
-    Sake.create!(s.merge(image_path: "sakes/#{filename}"))
-  else
-    puts "File not found: #{filename}" if filename
-    Sake.create!(s.merge(image_path: nil))
-  end
+  Sake.create!(
+    id: s[:id],
+    name: s[:name],
+    description: s[:description],
+    image_path: sake_images[s[:id]] # public 配下のパス
+  )
 end
 
 puts "Created #{Sake.count} Sake records"

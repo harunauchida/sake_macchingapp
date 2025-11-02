@@ -23,7 +23,7 @@
       <% @all_sakes.each do |sake| %>
         <div class="sake-card">
           <% if sake.image_path.present? %>
-            <%= image_tag "/#{sake.image_path}", alt: sake.name, class: "sake-image" %>
+            <%= image_tag sake.image_path, alt: sake.name, class: "sake-image" %>
           <% else %>
             <p class="no-image">画像がありません</p>
           <% end %>
