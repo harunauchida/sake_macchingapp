@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
 
     def create
         @contact = Contact.new(contact_params)
-        if @contact.valid?   # save → valid? に変更
+        if @contact.valid?  
             redirect_to root_path, notice: "お問い合わせを送信しました。"
         else
             flash.now[:alert] = "入力に問題があります。"

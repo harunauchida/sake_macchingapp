@@ -1,8 +1,7 @@
-/*
+/* 
  *= require_tree .
  *= require_self
  */
-
 
 /*  ヘッダー */
 .main-header {
@@ -28,10 +27,6 @@
   font-weight: bold;
   font-size: 40px;
 }
-
-
-
-
 
 /* ヘッダー右上ボタン */
 .header-buttons {
@@ -86,13 +81,6 @@
   object-fit: cover;
 }
 
-/* ドロップダウン親 */
-.user-dropdown {
-  position: relative;
-  display: inline-block; /* ← 親幅をボタンに合わせる */
-  font-family: "Yu Mincho", serif;
-}
-
 /* ドロップダウンメニュー */
 .user-dropdown .dropdown-menu { 
   position: absolute;
@@ -111,7 +99,7 @@
   pointer-events: none;
 }
 
-/* ドロップダウン開いたとき */
+
 .user-dropdown[open] .dropdown-menu {
   opacity: 1;
   transform: translateY(0);
@@ -136,7 +124,6 @@
   font-family: "Yu Mincho", serif;
 }
 
-/* ホバー時 */
 .user-dropdown .dropdown-menu a.dropdown-link:hover,
 .user-dropdown .dropdown-menu form.logout-form input[type="submit"].dropdown-link:hover {
   background-color: #6a8e4e;
@@ -194,7 +181,8 @@
   font-size: 1em;
   border-radius: 8px;
 }
-/* 診断するボタン*/
+
+/* 診断するボタン */
 .btn-diagnose {
   padding: 20px 40px;      
   font-size: 1.4em;        
@@ -202,12 +190,12 @@
   font-weight: bold;
   transition: 0.2s;
 }
-
 .btn-diagnose:hover {
-  background-color: #5a7d42; /* ホバーで少し濃く */
+  background-color: #5a7d42;
   color: white;
 }
-/*トップページ全体*/
+
+/* トップページ全体 */
 body {
   font-family: "Yu Mincho", serif;
   background-color: #ffffff;
@@ -215,7 +203,7 @@ body {
   color: #4b4b4b;
 }
 
-/* ヒーロー*/
+/* ヒーロー */
 .hero {
   position: relative;
   width: 100%;
@@ -245,29 +233,36 @@ body {
   font-size: 1.2em;
   margin-bottom: 15px;
 }
+
 /* 余白 */
 .site-description {
   margin-bottom: 80px; 
 }
-
 .site-description .btn {
   margin-top: 24px; 
 }
-/*もっと見るボタン*/
+
+/* もっと見るボタン */
+.more-btn {
+  text-align: center;
+  margin-bottom: 60px; 
+}
 .more-btn .btn {
-  font-size: 14px;         /* テキストを少し小さく */
-  padding: 8px 16px;       /* ボタンの上下・左右の余白を小さく */
-  border-radius: 6px;      /* 少し角を丸く（お好み） */
+  font-size: 20px;
+  padding: 16px 32px;
+  border-radius: 12px;
 }
 
-/* 日本酒カード*/
-.sake-cards {
+/* 日本酒カード */
+.sake-card-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: center; /* 中央揃え */
   gap: 20px;
   margin-top: 30px;
+  margin-bottom: 40px;
 }
+
 .sake-card {
   width: 300px;
   padding: 15px;
@@ -279,32 +274,20 @@ body {
   align-items: center;
   transition: transform 0.2s;
   color: #4b4b4b;
-}
-
-.sake-cards {
-  margin-bottom: 40px; 
-}
-
-.more-btn {
-  text-align: center;
-  margin-bottom: 60px; 
-}
-
-.more-btn .btn {
-  font-size: 20px;
-  padding: 16px 32px;
-  border-radius: 12px;
+  position: relative;
 }
 
 .sake-card:hover {
   transform: translateY(-5px);
 }
+
 .sake-image {
   width: 100%;
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 10px;
 }
+
 .sake-image-placeholder {
   width: 100%;
   height: 150px;
@@ -316,11 +299,17 @@ body {
   color: #888;
   margin-bottom: 10px;
 }
+
+.sake-info {
+  text-align: center;
+}
+
 .sake-rating {
   color: #f2c8a0;
   font-weight: bold;
   margin-bottom: 5px;
 }
+
 .sake-type-mark {
   background-color: #6a8e4e;
   color: white;
@@ -331,10 +320,31 @@ body {
   display: inline-block;
 }
 
+/* 酒カードのお気に入り機能 */
+.sake-favorite-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 30px; 
+  cursor: pointer;
+  color: #6a8e4e;
+}
+
+.favorite-btn.favorited {
+  color: red;
+}
+
 /* 日本酒一覧順番リンク */
 .sake-cards-wrapper {
   position: relative;
 }
+
 .sort-links {
   position: absolute;
   top: -35px;
@@ -343,10 +353,12 @@ body {
   z-index: 10;
   font-size: 0.75rem;
 }
+
 .sort-links span {
   margin-right: 0.3rem;
   font-weight: bold;
 }
+
 .sort-link {
   font-size: 0.75rem;
   padding: 1px 4px;
@@ -354,6 +366,7 @@ body {
   text-decoration: none;
   margin-left: 0.3rem;
 }
+
 .sort-link:hover {
   text-decoration: underline;
 }
@@ -385,7 +398,6 @@ body {
   color: #8fa77a;
   text-decoration: underline;
 }
-
 
 /* アカウント情報 */
 .user-form {
@@ -444,25 +456,3 @@ body {
   object-fit: cover;
   border: 2px solid #6a8e4e;
 }
-
-/* 酒カードのお気に入り機能 */
-
-.sake-favorite-button {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-}
-
-.favorite-btn {
-  background: none;
-  border: none;
-  padding: 0;
-  font-size:30px; /* ハートサイズ */
-  cursor: pointer;
-  color: #6a8e4e;
-}
-
-.favorite-btn.favorited {
-  color: red; /* すでにお気に入りの場合は赤 */
-}
-
