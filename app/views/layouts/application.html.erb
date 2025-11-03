@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>  
 <html>
   <head>
     <title>SakeMatchingApp</title>
@@ -12,7 +12,6 @@
   <body>
     <!-- ヘッダー -->
     <header class="main-header">
-      <!-- ロゴにトップページリンク -->
       <div class="logo">
         <%= link_to root_path, class: "logo-link" do %>
           SAKE MATCH
@@ -33,7 +32,7 @@
             <div class="dropdown-menu">
               <%= link_to "マイページ", user_reviews_path(current_user), class: "dropdown-link" %>
               <%= link_to "設定", user_path(current_user), class: "dropdown-link" %>
-              <%= link_to "お問い合わせ", contact_path, class: "dropdown-link" %>
+              <%= link_to "お問い合わせ", new_contact_path, class: "dropdown-link" %>
 
               <%= form_with(url: logout_path, method: :delete, local: true, class: "logout-form") do %>
                 <%= submit_tag "ログアウト", class: "dropdown-link" %>
@@ -55,7 +54,7 @@
       <%= yield %>
     </main>
 
-  <!-- フッター -->
+    <!-- フッター -->
     <footer class="main-footer">
       <p>© 2025 Sake Match. All rights reserved.</p>
       <nav class="footer-links">
