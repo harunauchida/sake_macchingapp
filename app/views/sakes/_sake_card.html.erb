@@ -1,7 +1,7 @@
-<div class="sake-card">
+<div class="sake-card"> 
   <!-- 画像表示 or 文字表示 -->
   <% if sake.image_path.present? %>
-    <%= image_tag sake.image_path, alt: sake.name, class: "sake-image" %>
+    <%= image_tag asset_path("sakes/#{sake.image_path}"), alt: sake.name, class: "sake-image" %>
   <% else %>
     <div class="sake-image-placeholder">画像がありません</div>
   <% end %>
