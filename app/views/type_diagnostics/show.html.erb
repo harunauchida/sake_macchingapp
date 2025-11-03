@@ -1,28 +1,28 @@
-<%= stylesheet_link_tag "type_diagnostics", media: "all" %>
-
-<div class="diagnosis-result text-center"> 
+<div class="diagnosis-result text-center">
   <h1>診断結果</h1>
   <p>あなたのタイプは…</p>
   <h2 class="result-type"><%= @type.result %></h2>
 </div>
 
 <!-- おすすめの日本酒 -->
-<section class="recommended-section text-center">
-  <h3 class="section-title">あなたにおすすめの日本酒</h3>
-
-  <div class="sake-card-container">
+<section class="recommended-sake">
+  <h2>あなたにおすすめの日本酒</h2>
+  <div class="sake-cards">
     <% if @recommended_sakes.present? %>
       <% @recommended_sakes.each do |sake| %>
-        <div class="sake-card" id="sake_<%= sake.id %>">
-          <% if sake.image_path.present? %>
-            <%= image_tag asset_path("sakes/#{sake.image_path}"), alt: sake.name, class: "sake-image" %>
+        <div class="sake-card">
+          <!-- 画像表示 or 文字表示 -->
+          <% if sake.image_path.present? && asset_exists?("sakes/#{sake.image_path}") %>
+            <%= image_tag "sakes/#{sake.image_path}", alt: sake.name, class: "sake-image" %>
           <% else %>
             <div class="sake-image-placeholder">画像がありません</div>
           <% end %>
 
+          <!-- 名前・説明 -->
           <h3 class="sake-name"><%= sake.name %></h3>
           <p class="sake-description"><%= truncate(sake.description, length: 50) %></p>
 
+          <!-- 星評価 -->
           <div class="sake-rating">
             <% if sake.respond_to?(:average_rating) && sake.average_rating.present? %>
               <%= star_rating(sake.average_rating) %>
@@ -32,6 +32,7 @@
             <% end %>
           </div>
 
+          <!-- タイプ診断マーク -->
           <div class="sake-type-mark">
             <%= case sake.flavor_type
                 when "sweet" then "甘口タイプおすすめ 🍯"
@@ -41,35 +42,48 @@
                 end %>
           </div>
 
+          <!-- レビューリンク -->
           <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small mt-2" %>
 
+          <!-- 気になるボタン -->
           <div class="sake-favorite-button mt-2">
             <% if logged_in? && !current_user.guest? %>
-              <% if current_user.favorited?(sake) %>
-                <%= button_to "♥", sake_favorite_path(sake),
-                    method: :delete, data: { turbo: false },
-                    class: "favorite-btn favorited",
-                    aria: { label: "#{sake.name} をお気に入り解除" } %>
+              <% if respond_to?(:sake_favorite_path) %>
+                <% if current_user.favorited?(sake) %>
+                  <%= button_to sake_favorite_path(sake),
+                                method: :delete,
+                                class: "favorite-btn favorited",
+                                data: { turbo: false } do %>
+                    ♥
+                  <% end %>
+                <% else %>
+                  <%= button_to sake_favorite_path(sake),
+                                method: :post,
+                                class: "favorite-btn",
+                                data: { turbo: false } do %>
+                    ♡
+                  <% end %>
+                <% end %>
               <% else %>
-                <%= button_to "♡", sake_favorite_path(sake),
-                    method: :post, data: { turbo: false },
-                    class: "favorite-btn",
-                    aria: { label: "#{sake.name} をお気に入り登録" } %>
+                <%= link_to "♡", root_path, class: "favorite-btn" %>
               <% end %>
             <% else %>
-              <%= button_to "♡", "#",
-                  class: "favorite-btn disabled", disabled: true,
-                  title: "ゲストユーザーは使用できません" %>
+              <%= button_to "#",
+                            class: "favorite-btn disabled",
+                            disabled: true,
+                            title: "ゲストユーザーは使用できません" do %>
+                ♡
+              <% end %>
             <% end %>
           </div>
         </div>
       <% end %>
     <% else %>
-      <p class="no-sakes mt-2">おすすめの日本酒はまだありません。</p>
+      <p class="no-sakes">おすすめの日本酒はまだありません。</p>
     <% end %>
   </div>
-</section>
 
-<div class="text-center mt-4">
-  <%= link_to "トップに戻る", root_path, class: "btn btn-secondary" %>
-</div>
+  <div class="more-btn text-center mt-4">
+    <%= link_to "トップに戻る", root_path, class: "btn btn-secondary" %>
+  </div>
+</section>
