@@ -1,4 +1,4 @@
-<div class="hero">     
+<div class="hero">
   <%= image_tag "top_sake.jpg", alt: "日本酒イメージ", class: "hero-img" %>
   <div class="hero-text">
     <h1>ようこそ、SAKE MATCHへ</h1>
@@ -23,7 +23,7 @@
       <% @all_sakes.each do |sake| %>
         <div class="sake-card">
           <!-- 画像表示 or 文字表示 -->
-          <% if sake.image_path.present? && asset_exists?("sakes/#{sake.image_path}") %>
+          <% if sake.image_path.present? %>
             <%= image_tag "sakes/#{sake.image_path}", alt: sake.name, class: "sake-image" %>
           <% else %>
             <div class="sake-image-placeholder">画像がありません</div>
@@ -35,8 +35,12 @@
 
           <!-- 星評価 -->
           <div class="sake-rating">
-            <%= star_rating(sake.average_rating) if sake.respond_to?(:average_rating) %>
-            <span class="rating-number">(<%= sake.average_rating || 0 %>)</span>
+            <% if sake.respond_to?(:average_rating) && sake.average_rating.present? %>
+              <%= star_rating(sake.average_rating) %>
+              <span class="rating-number">(<%= sake.average_rating %>)</span>
+            <% else %>
+              <span class="rating-number">(0)</span>
+            <% end %>
           </div>
 
           <!-- タイプ診断マーク -->
