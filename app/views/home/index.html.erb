@@ -1,4 +1,4 @@
-<div class="hero">      
+<div class="hero">       
   <%= image_tag "top_sake.jpg", alt: "日本酒イメージ", class: "hero-img" %>
   <div class="hero-text">
     <h1>ようこそ、SAKE MATCHへ</h1>
@@ -56,23 +56,27 @@
           <!-- レビューリンク -->
           <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small mt-2" %>
 
-          <!-- 気になるボタン（Turbo無効版） -->
+          <!-- 気になるボタン -->
           <div class="sake-favorite-button mt-2">
             <% if logged_in? && !current_user.guest? %>
-              <% if current_user.favorited?(sake) %>
-                <%= button_to sake_favorite_path(sake),
-                              method: :delete,
-                              class: "favorite-btn favorited",
-                              data: { turbo: false } do %>
-                  ♥ 気になる解除
+              <% if respond_to?(:sake_favorite_path) %>
+                <% if current_user.favorited?(sake) %>
+                  <%= button_to sake_favorite_path(sake),
+                                method: :delete,
+                                class: "favorite-btn favorited",
+                                data: { turbo: false } do %>
+                    ♥ 
+                  <% end %>
+                <% else %>
+                  <%= button_to sake_favorite_path(sake),
+                                method: :post,
+                                class: "favorite-btn",
+                                data: { turbo: false } do %>
+                    ♡ 
+                  <% end %>
                 <% end %>
               <% else %>
-                <%= button_to sake_favorite_path(sake),
-                              method: :post,
-                              class: "favorite-btn",
-                              data: { turbo: false } do %>
-                  ♡ 気になる
-                <% end %>
+                <%= link_to "♡", root_path, class: "favorite-btn" %>
               <% end %>
             <% else %>
               <%= button_to "#",
