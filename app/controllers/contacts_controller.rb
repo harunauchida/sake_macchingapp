@@ -5,16 +5,16 @@ class ContactsController < ApplicationController
 
     def create
         @contact = Contact.new(contact_params)
-        if @contact.valid?
+        if @contact.save
             redirect_to root_path, notice: "お問い合わせを送信しました。"
         else
             flash.now[:alert] = "入力に問題があります。"
             render :new
         end
-    
     end
 
-    private
+  private
+
     def contact_params
         params.require(:contact).permit(:name, :email, :message)
     end

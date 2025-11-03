@@ -1,32 +1,34 @@
-<div class="diagnosis-result text-center"> 
+<div class="diagnosis-result text-center">  
   <h1>診断結果</h1>
   <p>あなたのタイプは…</p>
   <h2 class="result-type"><%= @type.result %></h2>
 </div>
 
 <!-- おすすめの日本酒 -->
-<section class="recommended-section">
+<section class="recommended-section text-center">
   <h3 class="section-title">あなたにおすすめの日本酒</h3>
 
-  <div class="sake-card-container">
+  <div class="sake-card-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
     <% if @recommended_sakes.present? %>
       <% @recommended_sakes.each do |sake| %>
-        <div class="sake-card">
+        <div class="sake-card" style="width: 220px; text-align: center; border: 1px solid #ddd; padding: 10px; border-radius: 8px;">
           <!-- 画像 -->
           <% if sake.image_path.present? %>
-            <%= image_tag asset_path("sakes/#{sake.image_path}"), alt: sake.name, class: "sake-image" %>
+            <%= image_tag asset_path("sakes/#{sake.image_path}"), alt: sake.name, class: "sake-image", style: "width: 100%; height: auto; border-radius: 4px;" %>
           <% else %>
-            <div class="sake-image-placeholder">画像がありません</div>
+            <div class="sake-image-placeholder" style="width: 100%; height: 150px; line-height: 150px; background: #f0f0f0; color: #999; border-radius: 4px;">
+              画像がありません
+            </div>
           <% end %>
 
           <!-- 名前・説明 -->
-          <div class="sake-info">
+          <div class="sake-info mt-2">
             <h4 class="sake-name"><%= sake.name %></h4>
             <p class="sake-description"><%= truncate(sake.description, length: 50) %></p>
           </div>
 
           <!-- 星評価 -->
-          <div class="sake-rating">
+          <div class="sake-rating mt-1">
             <% if sake.respond_to?(:average_rating) && sake.average_rating.present? %>
               <%= star_rating(sake.average_rating) %>
               <span class="rating-number">(<%= sake.average_rating %>)</span>
@@ -35,12 +37,42 @@
             <% end %>
           </div>
 
-          <!-- レビューへのリンク -->
-          <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small mt-2" %>
+          <!-- レビューリンク -->
+          <div class="mt-2">
+            <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small" %>
+          </div>
+
+          <!-- 気になるボタン -->
+          <div class="sake-favorite-button mt-2">
+            <% if logged_in? && !current_user.guest? %>
+              <% if current_user.favorited?(sake) %>
+                <%= button_to sake_favorite_path(sake),
+                              method: :delete,
+                              class: "favorite-btn favorited",
+                              data: { turbo: false } do %>
+                  ♥ 
+                <% end %>
+              <% else %>
+                <%= button_to sake_favorite_path(sake),
+                              method: :post,
+                              class: "favorite-btn",
+                              data: { turbo: false } do %>
+                  ♡ 気になる
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= button_to "#",
+                            class: "favorite-btn disabled",
+                            disabled: true,
+                            title: "ゲストユーザーは使用できません" do %>
+                ♡
+              <% end %>
+            <% end %>
+          </div>
         </div>
       <% end %>
     <% else %>
-      <p class="no-sakes">おすすめの日本酒はまだありません。</p>
+      <p class="no-sakes mt-2">おすすめの日本酒はまだありません。</p>
     <% end %>
   </div>
 </section>
