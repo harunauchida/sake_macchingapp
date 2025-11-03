@@ -1,3 +1,9 @@
+/* 
+*= require_tree . 
+*= require_self 
+*/ 
+
+
 body {
   font-family: "Yu Mincho", serif;
   background-color: #ffffff;
