@@ -213,12 +213,13 @@ body {
 
 /* 日本酒カード用 */
 .sake-card-container {
-  display: flex;
+  display: flex !important;
   flex-wrap: wrap;
-  justify-content: center; /* 横並び中央揃え */
-  gap: 20px;
-  margin: 30px auto 40px auto;
+  justify-content: center !important;
+  align-items: flex-start;
+  margin: 0 auto;
   max-width: 1200px;
+  padding: 0 20px;
 }
 
 .sake-card {
