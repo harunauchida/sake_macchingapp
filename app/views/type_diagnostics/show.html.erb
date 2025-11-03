@@ -1,25 +1,51 @@
-<h1>診断結果</h1>
-<p>あなたのタイプは…</p>
-<h2><%= @type.result %></h2>
-
-<h3>おすすめの日本酒</h3>
-<div class="sake-cards">
-  <% if @recommended_sakes.present? %>
-    <% @recommended_sakes.each do |sake| %>
-      <div class="sake-card">
-        <% if sake.image.attached? %>
-          <%= image_tag sake.image, alt: sake.name, class: "sake-image" %>
-        <% else %>
-          <div class="sake-image-placeholder">No Image</div>
-        <% end %>
-        <h4><%= sake.name %></h4>
-        <p><%= truncate(sake.description, length: 50) %></p>
-        <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small" %>
-      </div>
-    <% end %>
-  <% else %>
-    <p>おすすめの日本酒はまだありません。</p>
-  <% end %>
+<div class="diagnosis-result text-center">
+  <h1>診断結果</h1>
+  <p>あなたのタイプは…</p>
+  <h2 class="result-type"><%= @type.result %></h2>
 </div>
 
-<%= link_to "トップに戻る", root_path, class: "btn btn-secondary" %>
+<!-- おすすめの日本酒 -->
+<section class="recommended-section">
+  <h3 class="section-title">あなたにおすすめの日本酒</h3>
+
+  <div class="sake-card-container">
+    <% if @recommended_sakes.present? %>
+      <% @recommended_sakes.each do |sake| %>
+        <div class="sake-card">
+          <!-- 画像 -->
+          <% if sake.image_path.present? %>
+            <%= image_tag "sakes/#{sake.image_path}", alt: sake.name, class: "sake-image" %>
+          <% else %>
+            <div class="sake-image-placeholder">画像がありません</div>
+          <% end %>
+
+          <!-- 名前・説明 -->
+          <div class="sake-info">
+            <h4 class="sake-name"><%= sake.name %></h4>
+            <p class="sake-description"><%= truncate(sake.description, length: 50) %></p>
+          </div>
+
+          <!-- 星評価 -->
+          <div class="sake-rating">
+            <% if sake.respond_to?(:average_rating) && sake.average_rating.present? %>
+              <%= star_rating(sake.average_rating) %>
+              <span class="rating-number">(<%= sake.average_rating %>)</span>
+            <% else %>
+              <span class="rating-number">(0)</span>
+            <% end %>
+          </div>
+
+          <!-- レビューへのリンク -->
+          <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small mt-2" %>
+        </div>
+      <% end %>
+    <% else %>
+      <p class="no-sakes">おすすめの日本酒はまだありません。</p>
+    <% end %>
+  </div>
+</section>
+
+<!-- トップへ戻る -->
+<div class="text-center mt-4">
+  <%= link_to "トップに戻る", root_path, class: "btn btn-secondary" %>
+</div>

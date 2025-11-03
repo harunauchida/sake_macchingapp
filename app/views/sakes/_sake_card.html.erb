@@ -1,57 +1,72 @@
-<div class="sake-card"> 
-  <!-- 画像表示 or 文字表示 -->
-  <% if sake.image_path.present? %>
-    <%= image_tag asset_path("sakes/#{sake.image_path}"), alt: sake.name, class: "sake-image" %>
-  <% else %>
-    <div class="sake-image-placeholder">画像がありません</div>
-  <% end %>
+<h1>診断結果</h1> 
+<p>あなたのタイプは…</p>
+<h2><%= @type.result %></h2>
 
-  <!-- 名前・説明 -->
-  <h3 class="sake-name"><%= sake.name %></h3>
-  <p class="sake-description"><%= truncate(sake.description, length: 50) %></p>
-
-  <!-- 星評価 -->
-  <div class="sake-rating">
-    <%= star_rating(sake.average_rating) if sake.respond_to?(:average_rating) %>
-    <span class="rating-number">(<%= sake.average_rating || 0 %>)</span>
-  </div>
-
-  <!-- タイプ診断マーク -->
-  <div class="sake-type-mark">
-    <%= case sake.flavor_type
-        when "sweet" then "甘口タイプおすすめ 🍯"
-        when "medium" then "中口タイプおすすめ 🌾"
-        when "dry" then "辛口タイプおすすめ 🔥"
-        else "タイプ診断おすすめ 🍶"
-        end %>
-  </div>
-
-  <!-- レビューリンク -->
-  <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small mt-2" %>
-
-  <!-- 気になるボタン -->
-  <div class="sake-favorite-button">
-    <% if logged_in? && !current_user.guest? %>
-      <% if current_user.favorited?(sake) %>
-        <%= button_to sake_favorite_path(sake),
-                      method: :delete,
-                      class: "favorite-btn favorited" do %>
-          ♥
+<h3>おすすめの日本酒</h3>
+<div class="sake-cards">
+  <% if @recommended_sakes.present? %>
+    <% @recommended_sakes.each do |sake| %>
+      <div class="sake-card">  
+        <!-- 画像表示 or 文字表示 -->
+        <% if sake.image_path.present? %>
+          <%= image_tag asset_path("sakes/#{sake.image_path}"), alt: sake.name, class: "sake-image" %>
+        <% else %>
+          <div class="sake-image-placeholder">画像がありません</div>
         <% end %>
-      <% else %>
-        <%= button_to sake_favorite_path(sake),
-                      method: :post,
-                      class: "favorite-btn" do %>
-          ♥
-        <% end %>
-      <% end %>
-    <% else %>
-      <%= button_to "#",
-                    class: "favorite-btn disabled",
-                    disabled: true,
-                    title: "ゲストユーザーは使用できません" do %>
-        ♥
-      <% end %>
+
+        <!-- 名前・説明 -->
+        <h3 class="sake-name"><%= sake.name %></h3>
+        <p class="sake-description"><%= truncate(sake.description, length: 50) %></p>
+
+        <!-- 星評価 -->
+        <div class="sake-rating">
+          <%= star_rating(sake.average_rating) if sake.respond_to?(:average_rating) %>
+          <span class="rating-number">(<%= sake.average_rating || 0 %>)</span>
+        </div>
+
+        <!-- タイプ診断マーク -->
+        <div class="sake-type-mark">
+          <%= case sake.flavor_type
+              when "sweet" then "甘口タイプおすすめ 🍯"
+              when "medium" then "中口タイプおすすめ 🌾"
+              when "dry" then "辛口タイプおすすめ 🔥"
+              else "タイプ診断おすすめ 🍶"
+              end %>
+        </div>
+
+        <!-- レビューリンク -->
+        <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small mt-2" %>
+
+        <!-- 気になるボタン -->
+        <div class="sake-favorite-button">
+          <% if logged_in? && !current_user.guest? %>
+            <% if current_user.favorited?(sake) %>
+              <%= button_to sake_favorite_path(sake),
+                            method: :delete,
+                            class: "favorite-btn favorited" do %>
+                ♥
+              <% end %>
+            <% else %>
+              <%= button_to sake_favorite_path(sake),
+                            method: :post,
+                            class: "favorite-btn" do %>
+                ♥
+              <% end %>
+            <% end %>
+          <% else %>
+            <%= button_to "#",
+                          class: "favorite-btn disabled",
+                          disabled: true,
+                          title: "ゲストユーザーは使用できません" do %>
+              ♥
+            <% end %>
+          <% end %>
+        </div>
+      </div>
     <% end %>
-  </div>
+  <% else %>
+    <p>おすすめの日本酒はまだありません。</p>
+  <% end %>
 </div>
+
+<%= link_to "トップに戻る", root_path, class: "btn btn-secondary" %>

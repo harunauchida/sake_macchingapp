@@ -1,4 +1,4 @@
-<h1><%= @user.name %>さんのレビュー一覧</h1>     
+<h1><%= @user.name %>さんのレビュー一覧</h1>
 
 <!-- 気になる一覧リンク -->
 <% unless current_user.guest? %>
@@ -11,25 +11,37 @@
   <div class="sake-cards">
     <% @reviews.each do |review| %>
       <div class="sake-card">
-        <% if review.sake.image.attached? %>
-          <%= image_tag review.sake.image, class: "sake-image" %>
+        <!-- 日本酒画像-->
+        <% if review.sake.image_path.present? %>
+          <%= image_tag asset_path("sakes/#{review.sake.image_path}"), alt: review.sake.name, class: "sake-image" %>
         <% else %>
-          <div class="sake-image-placeholder">No Image</div>
+          <div class="sake-image-placeholder">画像がありません</div>
         <% end %>
 
-        <h3><%= review.sake.name %></h3>
+        <!-- 酒情報 -->
+        <h3 class="sake-name"><%= review.sake.name %></h3>
         <p class="sake-rating">評価：<%= "★" * review.rating %></p>
         <p class="sake-comment"><%= review.content.presence || "コメントなし" %></p>
         <p class="text-sm text-gray-600"><%= review.created_at.strftime("%Y/%m/%d %H:%M") %></p>
 
+       
+        <div class="sake-type-mark">
+          <%= case review.sake.flavor_type
+              when "sweet" then "甘口タイプ 🍯"
+              when "medium" then "中口タイプ 🌾"
+              when "dry" then "辛口タイプ 🔥"
+              else "タイプ不明 🍶"
+              end %>
+        </div>
+
+        <!-- 編集・削除ボタン -->
         <% unless current_user.guest? %>
           <div class="flex justify-center gap-2 mt-3">
-            <!-- 編集リンクはそのまま -->
             <%= link_to "編集", edit_user_review_path(@user, review), class: "btn btn-small btn-secondary" %>
-            <%= button_to "削除", [@user, review], 
-                    method: :delete,
-                    onclick: "return confirm('本当に削除しますか？')",
-                    class: "btn btn-small btn-login" %>
+            <%= button_to "削除", [@user, review],
+                          method: :delete,
+                          onclick: "return confirm('本当に削除しますか？')",
+                          class: "btn btn-small btn-login" %>
           </div>
         <% end %>
       </div>
