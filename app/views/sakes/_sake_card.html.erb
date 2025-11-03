@@ -1,4 +1,5 @@
-<div class="sake-card" id="sake_<%= sake.id %>">  
+<div class="sake-card" id="sake_<%= sake.id %>">
+  <!-- 画像 -->
   <% if sake.image_path.present? %>
     <%= image_tag asset_path("sakes/#{sake.image_path}"), alt: sake.name, class: "sake-image" %>
   <% else %>
@@ -32,33 +33,30 @@
   <!-- レビューリンク -->
   <%= link_to "レビューを見る", sake_path(sake), class: "btn btn-primary btn-small mt-2" %>
 
-  <!-- 気になるボタン（Turbo対応） -->
+  <!-- 気になるボタン（Turbo無効化版） -->
   <div class="sake-favorite-button mt-2">
     <% if logged_in? && !current_user.guest? %>
-      <%= turbo_frame_tag "favorite_button_#{sake.id}" do %>
-        <% if current_user.favorited?(sake) %>
-          <%= button_to sake_favorite_path(sake),
-                        method: :delete,
-                        data: { turbo_frame: "favorite_button_#{sake.id}" },
-                        class: "favorite-btn favorited" do %>
-            ♥
-          <% end %>
-        <% else %>
-          <%= button_to sake_favorite_path(sake),
-                        method: :post,
-                        data: { turbo_frame: "favorite_button_#{sake.id}" },
-                        class: "favorite-btn" do %>
-            ♡
-          <% end %>
-        <% end %>
+      <% if current_user.favorited?(sake) %>
+        <%= button_to "♥",
+                      sake_favorite_path(sake),
+                      method: :delete,
+                      data: { turbo: false },
+                      class: "favorite-btn favorited",
+                      aria: { label: "#{sake.name} をお気に入り解除" } %>
+      <% else %>
+        <%= button_to "♡",
+                      sake_favorite_path(sake),
+                      method: :post,
+                      data: { turbo: false },
+                      class: "favorite-btn",
+                      aria: { label: "#{sake.name} をお気に入り登録" } %>
       <% end %>
     <% else %>
-      <%= button_to "#",
+      <%= button_to "♡",
+                    "#",
                     class: "favorite-btn disabled",
                     disabled: true,
-                    title: "ゲストユーザーは使用できません" do %>
-        ♥
-      <% end %>
+                    title: "ゲストユーザーは使用できません" %>
     <% end %>
   </div>
 </div>
