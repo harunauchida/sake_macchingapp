@@ -1,10 +1,10 @@
 .contact-form-container { 
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 30px;
+    max-width: 550px;
+    margin: 50px auto;
+    padding: 35px 30px;
     background-color: #fff8e1;  
-    border-radius: 12px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     font-family: "Yu Mincho", serif;
     color: #4b4b4b;
 }
@@ -12,21 +12,22 @@
 /* タイトル */
 .contact-form-container h1 {
     text-align: center;
-    font-size: 2em;
-    margin-bottom: 25px;
+    font-size: 2.2em;
+    margin-bottom: 30px;
     color: #333;
+    letter-spacing: 0.5px;
 }
 
-/* フォーム全体 */
+
 .contact-form .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
     text-align: left;
 }
 
-/* ラベル */
+
 .contact-form label {
     display: block;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     font-weight: bold;
     font-family: "Yu Mincho", serif;
     color: #555;
@@ -38,27 +39,27 @@
 .contact-form select.form-control {
     width: 100%;
     padding: 12px 14px;
-    border-radius: 8px;
+    border-radius: 10px;
     border: 1px solid #ccc;
     font-size: 1em;
     font-family: "Yu Mincho", serif;
     box-sizing: border-box;
-    transition: border-color 0.3s, box-shadow 0.3s;
+    transition: all 0.3s;
 }
 
-
+/* フォーカス時 */
 .contact-form input.form-control:focus,
 .contact-form textarea.form-control:focus,
 .contact-form select.form-control:focus {
     border-color: #f5b800;
-    box-shadow: 0 0 5px rgba(245, 184, 0, 0.3);
+    box-shadow: 0 0 8px rgba(245, 184, 0, 0.35);
     outline: none;
-}
+} 
 
-
+/* テキストエリアの高さ */
 .contact-form textarea.form-control {
     resize: vertical;
-    min-height: 120px;
+    min-height: 140px;
 }
 
 /* 送信ボタン */
@@ -66,14 +67,16 @@
 .contact-form button {
     display: block;
     width: 100%;
-    padding: 12px;
+    padding: 14px;
+    margin-top: 10px;
     background-color: #f5b800;
     color: #fff;
-    font-size: 1.1em;
+    font-size: 1.15em;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-weight: bold;
+    transition: all 0.3s;
 }
 
 .contact-form input[type="submit"]:hover,
@@ -84,18 +87,26 @@
 /* エラーメッセージ */
 .contact-form .alert {
     color: #d9534f;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     text-align: center;
+    font-weight: bold;
+}
+
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 /* レスポンシブ対応 */
 @media screen and (max-width: 600px) {
     .contact-form-container {
-        padding: 20px;
-        margin: 20px;
-  }
+        padding: 25px 20px;
+        margin: 25px;
+}
 
     .contact-form-container h1 {
-        font-size: 1.8em;
-  }
+        font-size: 1.9em;
+}
 }

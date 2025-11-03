@@ -464,7 +464,7 @@ body {
   background: none;
   border: none;
   padding: 0;
-  font-size:50px; /* ハートサイズ */
+  font-size:30px; /* ハートサイズ */
   cursor: pointer;
   color: #6a8e4e;
 }
