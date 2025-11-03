@@ -1,4 +1,4 @@
-<div class="hero">
+<div class="hero"> 
   <%= image_tag "top_sake.jpg", alt: "日本酒イメージ", class: "hero-img" %>
   <div class="hero-text">
     <h1>ようこそ、SAKE MATCHへ</h1>
@@ -21,8 +21,8 @@
   <div class="sake-cards">
     <% if @all_sakes.present? %>
       <% @all_sakes.each do |sake| %>
-        <div class="sake-card">
-          <!-- 画像表示 or 文字表示 -->
+        <div class="sake-card" id="sake_<%= sake.id %>">
+          <!-- 画像 -->
           <% if sake.image_path.present? %>
             <%= image_tag "sakes/#{sake.image_path}", alt: sake.name, class: "sake-image" %>
           <% else %>
@@ -59,13 +59,21 @@
           <!-- 気になるボタン -->
           <div class="sake-favorite-button">
             <% if logged_in? && !current_user.guest? %>
-              <% if current_user.favorited?(sake) %>
-                <%= button_to sake_favorite_path(sake), method: :delete, class: "favorite-btn favorited" do %>
-                  ♥
-                <% end %>
-              <% else %>
-                <%= button_to sake_favorite_path(sake), method: :post, class: "favorite-btn" do %>
-                  ♥
+              <%= turbo_frame_tag "favorite_button_#{sake.id}" do %>
+                <% if current_user.favorited?(sake) %>
+                  <%= button_to sake_favorite_path(sake),
+                                method: :delete,
+                                data: { turbo_frame: "favorite_button_#{sake.id}" },
+                                class: "favorite-btn favorited" do %>
+                    ♥
+                  <% end %>
+                <% else %>
+                  <%= button_to sake_favorite_path(sake),
+                                method: :post,
+                                data: { turbo_frame: "favorite_button_#{sake.id}" },
+                                class: "favorite-btn" do %>
+                    ♡
+                  <% end %>
                 <% end %>
               <% end %>
             <% else %>

@@ -1,4 +1,4 @@
-<div class="diagnosis-result text-center">
+<div class="diagnosis-result text-center"> 
   <h1>診断結果</h1>
   <p>あなたのタイプは…</p>
   <h2 class="result-type"><%= @type.result %></h2>
@@ -14,7 +14,7 @@
         <div class="sake-card">
           <!-- 画像 -->
           <% if sake.image_path.present? %>
-            <%= image_tag "sakes/#{sake.image_path}", alt: sake.name, class: "sake-image" %>
+            <%= image_tag asset_path("sakes/#{sake.image_path}"), alt: sake.name, class: "sake-image" %>
           <% else %>
             <div class="sake-image-placeholder">画像がありません</div>
           <% end %>
