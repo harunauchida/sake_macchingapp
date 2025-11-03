@@ -1,29 +1,29 @@
-<div class="sake-card"> 
-  <% if sake.image.attached? %>
-    <%= image_tag(sake.image, alt: sake.name, class: "sake-image") %>
+<div class="sake-card">
+  <!-- 画像表示 or 文字表示 -->
+  <% if sake.image_path.present? %>
+    <%= image_tag sake.image_path, alt: sake.name, class: "sake-image" %>
   <% else %>
-    <div class="sake-image-placeholder">No Image</div>
+    <div class="sake-image-placeholder">画像がありません</div>
   <% end %>
 
-  <h3><%= sake.name %></h3>
-  <p><%= truncate(sake.description, length: 50) %></p>
+  <!-- 名前・説明 -->
+  <h3 class="sake-name"><%= sake.name %></h3>
+  <p class="sake-description"><%= truncate(sake.description, length: 50) %></p>
 
   <!-- 星評価 -->
   <div class="sake-rating">
-    <%= star_rating(sake.average_rating) %>
-    <span class="rating-number">(<%= sake.average_rating %>)</span>
+    <%= star_rating(sake.average_rating) if sake.respond_to?(:average_rating) %>
+    <span class="rating-number">(<%= sake.average_rating || 0 %>)</span>
   </div>
 
   <!-- タイプ診断マーク -->
   <div class="sake-type-mark">
-    <%=
-      case sake.flavor_type
-      when "sweet" then "甘口タイプおすすめ 🍯"
-      when "medium" then "中口タイプおすすめ 🌾"
-      when "dry" then "辛口タイプおすすめ 🔥"
-      else "タイプ診断おすすめ 🍶"
-      end
-    %>
+    <%= case sake.flavor_type
+        when "sweet" then "甘口タイプおすすめ 🍯"
+        when "medium" then "中口タイプおすすめ 🌾"
+        when "dry" then "辛口タイプおすすめ 🔥"
+        else "タイプ診断おすすめ 🍶"
+        end %>
   </div>
 
   <!-- レビューリンク -->
