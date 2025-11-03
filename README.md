@@ -4,8 +4,7 @@
 日本酒って、実はもっと自由で楽しい。
 あなたの“好き”から見つかる、とっておきの一杯を。
 
-![App Screenshot](docs/screenshot_home.png)  
-
+![App Screenshot](app/assets/images/screenshot_home.png)
 
 日本酒に興味があるユーザー向けに、タイプ診断結果をもとにおすすめの日本酒を提案し、  
 レビュー・お気に入り機能で情報を共有できるWebアプリです。
