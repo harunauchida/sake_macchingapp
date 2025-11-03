@@ -13,28 +13,20 @@ class FavoritesController < ApplicationController
   # 気になる追加
   def create
     @favorite = current_user.favorites.new(sake: @sake)
-    respond_to do |format|
-      if @favorite.save
-        format.html { redirect_back fallback_location: root_path, notice: "気になるに追加しました" }
-        format.turbo_stream
-      else
-        format.html { redirect_back fallback_location: root_path, alert: "すでに追加済みです" }
-        format.turbo_stream
-      end
+    if @favorite.save
+      redirect_back fallback_location: root_path, notice: "気になるに追加しました"
+    else
+      redirect_back fallback_location: root_path, alert: "すでに追加済みです"
     end
   end
 
   # 気になる解除
   def destroy
     @favorite = current_user.favorites.find_by(sake: @sake)
-    respond_to do |format|
-      if @favorite&.destroy
-        format.html { redirect_back fallback_location: root_path, notice: "気になるを解除しました" }
-        format.turbo_stream
-      else
-        format.html { redirect_back fallback_location: root_path, alert: "お気に入りが見つかりませんでした" }
-        format.turbo_stream
-      end
+    if @favorite&.destroy
+      redirect_back fallback_location: root_path, notice: "気になるを解除しました"
+    else
+      redirect_back fallback_location: root_path, alert: "お気に入りが見つかりませんでした"
     end
   end
 
