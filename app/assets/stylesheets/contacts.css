@@ -1,44 +1,101 @@
-.contact-form-container {
+.contact-form-container { 
     max-width: 500px;
     margin: 40px auto;
-    padding: 25px;
+    padding: 30px;
     background-color: #fff8e1;  
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
     font-family: "Yu Mincho", serif;
     color: #4b4b4b;
 }
 
+/* タイトル */
 .contact-form-container h1 {
     text-align: center;
     font-size: 2em;
     margin-bottom: 25px;
+    color: #333;
 }
 
+/* フォーム全体 */
 .contact-form .form-group {
     margin-bottom: 20px;
     text-align: left;
 }
 
+/* ラベル */
 .contact-form label {
     display: block;
     margin-bottom: 6px;
     font-weight: bold;
     font-family: "Yu Mincho", serif;
+    color: #555;
 }
 
+/* 入力欄*/
 .contact-form input.form-control,
 .contact-form textarea.form-control,
 .contact-form select.form-control {
     width: 100%;
-    padding: 10px 12px;
+    padding: 12px 14px;
     border-radius: 8px;
     border: 1px solid #ccc;
     font-size: 1em;
     font-family: "Yu Mincho", serif;
     box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
+
+
+.contact-form input.form-control:focus,
+.contact-form textarea.form-control:focus,
+.contact-form select.form-control:focus {
+    border-color: #f5b800;
+    box-shadow: 0 0 5px rgba(245, 184, 0, 0.3);
+    outline: none;
+}
+
 
 .contact-form textarea.form-control {
     resize: vertical;
+    min-height: 120px;
+}
+
+/* 送信ボタン */
+.contact-form input[type="submit"],
+.contact-form button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #f5b800;
+    color: #fff;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.contact-form input[type="submit"]:hover,
+.contact-form button:hover {
+    background-color: #e0a800;
+}
+
+/* エラーメッセージ */
+.contact-form .alert {
+    color: #d9534f;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* レスポンシブ対応 */
+@media screen and (max-width: 600px) {
+    .contact-form-container {
+        padding: 20px;
+        margin: 20px;
+  }
+
+    .contact-form-container h1 {
+        font-size: 1.8em;
+  }
 }
