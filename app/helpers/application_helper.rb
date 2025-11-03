@@ -1,7 +1,9 @@
 module ApplicationHelper
     def asset_exists?(path)
-        Rails.application.assets.find_asset(path).present?
-    rescue
-        false
+        if Rails.application.assets_manifest
+            Rails.application.assets_manifest.assets[path].present?
+        else
+            Rails.application.assets.find_asset(path).present?
+        end
     end
 end
