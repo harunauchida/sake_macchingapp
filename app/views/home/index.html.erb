@@ -1,4 +1,4 @@
-<div class="hero">   
+<div class="hero">    
   <%= image_tag "top_sake.jpg", alt: "日本酒イメージ", class: "hero-img" %>
   <div class="hero-text">
     <h1>ようこそ、SAKE MATCHへ</h1>
@@ -22,10 +22,10 @@
     <% if @all_sakes.present? %>
       <% @all_sakes.each do |sake| %>
         <div class="sake-card">
-          <% if sake.image_path.present? %>
-            <%= image_tag "sakes/#{sake.image_path}", alt: sake.name, class: "sake-image" %>
+          <% if sake.image_path.present? && asset_exists?(sake.image_path) %>
+            <%= image_tag sake.image_path, alt: sake.name, class: "sake-image" %>
           <% else %>
-            <%= image_tag "no_image.png", alt: "画像なし", class: "sake-image" %>
+            <p class="no-image">画像がありません</p>
           <% end %>
 
           <h3 class="sake-name"><%= sake.name %></h3>
